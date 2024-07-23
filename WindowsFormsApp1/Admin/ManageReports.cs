@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp1.Admin
 {
-    public partial class Form1 : Form
+    public partial class ManageReports : Form
     {
-        public Form1()
+        public ManageReports()
         {
             InitializeComponent();
         }
