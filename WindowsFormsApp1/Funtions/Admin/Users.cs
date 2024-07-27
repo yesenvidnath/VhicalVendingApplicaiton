@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApp1.Funtions.Admin
+namespace WindowsFormsApp1.Funtions
 {
-    internal class ManageBrands
+    internal class Users
     {
     }
 }

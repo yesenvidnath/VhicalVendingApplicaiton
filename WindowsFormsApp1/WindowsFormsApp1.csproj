@@ -33,8 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Guna.UI">
+      <HintPath>..\..\..\..\..\..\..\Guna.UI-Framework-Lib-master\Guna.UI-Framework-Lib-master\Guna.UI-Framework-Lib\Guna.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Guna.UI-unpacked">
+      <HintPath>..\..\..\..\..\..\..\Guna.UI-Framework-Cracked-master\Guna.UI-Framework-Cracked-master\Guna.UI-unpacked.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -124,6 +132,7 @@
     <Compile Include="Customer\Status.Designer.cs">
       <DependentUpon>Status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Funtions\HomeFuntions.cs" />
     <Compile Include="GeneralForms\Cars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,21 +141,39 @@
     </Compile>
     <Compile Include="dbconnect.cs" />
     <Compile Include="Funtions\AddToCart.cs" />
-    <Compile Include="Funtions\Admin\ManageBrands.cs" />
-    <Compile Include="Funtions\Customer\ChangeProfile.cs" />
+    <Compile Include="Funtions\Admin\Brands.cs" />
+    <Compile Include="Funtions\Profile.cs" />
     <Compile Include="Funtions\Customer\OrderCar.cs" />
     <Compile Include="Funtions\Customer\OrderCarPart.cs" />
     <Compile Include="Funtions\loginRegistration.cs" />
-    <Compile Include="Funtions\Admin\ManageCarParts.cs" />
-    <Compile Include="Funtions\Admin\ManageCars.cs" />
-    <Compile Include="Funtions\Admin\ManageOrders.cs" />
-    <Compile Include="Funtions\Admin\ManageReports.cs" />
-    <Compile Include="Funtions\Admin\ManageUsers.cs" />
+    <Compile Include="Funtions\Admin\CarParts.cs" />
+    <Compile Include="Funtions\Admin\Cars.cs" />
+    <Compile Include="Funtions\Orders.cs" />
+    <Compile Include="Funtions\Admin\Reports.cs" />
+    <Compile Include="Funtions\Admin\Users.cs" />
     <Compile Include="login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\BrandsList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainUserControls\BrandsList.Designer.cs">
+      <DependentUpon>BrandsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainUserControls\VehicleCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainUserControls\VehicleCard.Designer.cs">
+      <DependentUpon>VehicleCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,8 +189,23 @@
     <Compile Include="GeneralForms\SingleCar.Designer.cs">
       <DependentUpon>SingleCar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Register.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Register.Designer.cs">
+      <DependentUpon>Register.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainUserControls\BrandsList.resx">
+      <DependentUpon>BrandsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainUserControls\VehicleCard.resx">
+      <DependentUpon>VehicleCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -174,6 +216,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Register.resx">
+      <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -187,6 +232,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Assets\Img\logo-defult.png" />
+    <Content Include="Assets\Img\vehical-defoult.png" />
+    <Content Include="DBInfo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Reports\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

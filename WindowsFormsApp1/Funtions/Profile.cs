@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Funtions
 {
-    internal class ChangeProfile
+    internal class Profile
     {
     }
 }

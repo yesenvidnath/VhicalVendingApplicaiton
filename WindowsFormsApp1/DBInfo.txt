@@ -1,0 +1,139 @@
+﻿
+=============================================================================================================
+Here is the Data base strcuture of this applicaiton 
+
+-- Creating the Users table
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY,
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    Email NVARCHAR(100) UNIQUE,
+    Phone NVARCHAR(15),
+    Username NVARCHAR(50) UNIQUE,
+    Password NVARCHAR(50),
+    Role NVARCHAR(10) CHECK (Role IN ('Admin', 'Customer'))
+);
+GO
+
+-- Creating the Brands table
+CREATE TABLE Brands (
+    BrandID INT PRIMARY KEY IDENTITY,
+    BrandName NVARCHAR(100),
+    Description NVARCHAR(255),
+    Image NVARCHAR(255)
+);
+GO
+
+-- Creating the Cars table
+CREATE TABLE Cars (
+    CarID INT PRIMARY KEY IDENTITY,
+    BrandID INT FOREIGN KEY REFERENCES Brands(BrandID),
+    Model NVARCHAR(50),
+    Make NVARCHAR(50),
+    Year INT,
+    Price DECIMAL(10, 2),
+    QuantityAvailable INT,
+    Image NVARCHAR(255)
+);
+GO
+
+-- Creating the CarParts table
+CREATE TABLE CarParts (
+    PartID INT PRIMARY KEY IDENTITY,
+    BrandID INT FOREIGN KEY REFERENCES Brands(BrandID),
+    CarID INT FOREIGN KEY (CarID) REFERENCES Cars(CarID),
+    PartName NVARCHAR(100),
+    Description NVARCHAR(255),
+    Price DECIMAL(10, 2),
+    QuantityAvailable INT,
+    Image NVARCHAR(255)
+);
+GO
+
+-- Creating the Customers table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    UserID INT FOREIGN KEY REFERENCES Users(UserID)
+);
+GO
+
+-- Creating the Orders table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY IDENTITY,
+    CustomerID INT FOREIGN KEY REFERENCES Customers(CustomerID),
+    OrderDate DATE,
+    TotalAmount DECIMAL(10, 2),
+    Status NVARCHAR(10) CHECK (Status IN ('Pending', 'Completed', 'Cancelled'))
+);
+GO
+
+-- Creating the Payment table
+CREATE TABLE Payment (
+    PaymentID INT PRIMARY KEY IDENTITY,
+    Date DATE,
+    Time TIME,
+    Amount DECIMAL(10, 2),
+    OrderID INT FOREIGN KEY REFERENCES Orders(OrderID),
+    CustomerID INT FOREIGN KEY REFERENCES Customers(CustomerID)
+);
+GO
+
+-- Creating the OrderDetails table
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY IDENTITY,
+    OrderID INT FOREIGN KEY REFERENCES Orders(OrderID),
+    CarID INT NULL FOREIGN KEY REFERENCES Cars(CarID),
+    PartID INT NULL FOREIGN KEY REFERENCES CarParts(PartID),
+    Quantity INT,
+    Price DECIMAL(10, 2)
+);
+GO
+
+-- Creating the CartItems table
+CREATE TABLE CartItems (
+    CartItemID INT PRIMARY KEY IDENTITY,
+    CustomerID INT FOREIGN KEY REFERENCES Customers(CustomerID),
+    CarID INT NULL FOREIGN KEY REFERENCES Cars(CarID),
+    PartID INT NULL FOREIGN KEY REFERENCES CarParts(PartID),
+    Quantity INT,
+    AddedOn DATETIME
+);
+GO
+
+-- Creating the Reports table
+CREATE TABLE Reports (
+    ReportID INT PRIMARY KEY IDENTITY,
+    AdminID INT FOREIGN KEY REFERENCES Users(UserID),
+    DateGenerated DATE,
+    Content NVARCHAR(MAX)
+);
+GO
+
+
+
+==========================================================================================================================
+
+Data base was created using SSMS and MSSQL, Here are some sample data inserted in to the users table for demo purseses 
+
+-- Inserting sample data into Users table
+INSERT INTO Users (FirstName, LastName, Email, Phone, Username, Password, Role)
+VALUES 
+    ('John', 'Doe', 'john.doe@example.com', '555-0100', 'johndoe', 'pass123', 'Customer'),
+    ('Jane', 'Smith', 'jane.smith@example.com', '555-0101', 'janesmith', 'pass123', 'Customer'),
+    ('Alice', 'Johnson', 'alice.johnson@example.com', '555-0102', 'alicejohnson', 'pass123', 'Admin'),
+    ('Bob', 'Williams', 'bob.williams@example.com', '555-0103', 'bobwilliams', 'pass123', 'Customer'),
+    ('Charlie', 'Brown', 'charlie.brown@example.com', '555-0104', 'charliebrown', 'pass123', 'Customer');
+
+-- Inserting sample data into Customers table, assuming all users with role 'Customer' are customers
+INSERT INTO Customers (CustomerID, UserID)
+SELECT UserID, UserID FROM Users WHERE Role = 'Customer';
+GO
+
+
+
+
+
+
+=====================================================================================================================
+
+DB connection qerry:: Data Source=DESKTOP-SE5084M\SQLEXPRESS;Initial Catalog=CarRentalDB;Integrated Security=True

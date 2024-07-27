@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApp1.Funtions
+namespace WindowsFormsApp1.Funtions.Admin
 {
-    internal class ManageOrders
+    internal class Brands
     {
     }
 }

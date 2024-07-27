@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Funtions
 {
-    internal class ManageUsers
+    internal class Orders
     {
+
     }
 }
