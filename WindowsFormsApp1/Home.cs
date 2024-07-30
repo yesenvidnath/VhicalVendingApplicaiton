@@ -16,18 +16,17 @@ namespace WindowsFormsApp1
     {
 
         private HomeFuntions homeFunctions;
+        private Label noCarsLabel;
 
         public Home()
         {
             InitializeComponent();
             homeFunctions = new HomeFuntions(); // Initialize the instance
-
-            //Load Vehicles
-            LoadVehicleCards();
             //Load Brands
             LoadBrands();
-
+            LoadVehicleCards();
         }
+
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -50,19 +49,39 @@ namespace WindowsFormsApp1
             List<BrandsList> brandControls = homeFunctions.GetBrands();
             foreach (BrandsList brand in brandControls)
             {
+                brand.BrandSelected += Brand_BrandSelected;
                 flpbrands.Controls.Add(brand);
             }
         }
 
         // Load Vehicles
-        private void LoadVehicleCards()
+        private void Brand_BrandSelected(object sender, string brandName)
         {
-            List<VehicleCard> vehicleCards = homeFunctions.GetVehicleCards(); // Use the instance to call GetVehicleCards
-            foreach (VehicleCard card in vehicleCards)
+            LoadVehicleCards(brandName);
+        }
+
+        private void LoadVehicleCards(string brandName = null) 
+        {
+            List<VehicleCard> vehicleCards = homeFunctions.GetVehicleCardsByBrand(brandName);
+            flpproducts.Controls.Clear();
+
+            // condition to display the cars regadless of the cound of items within the area
+            if (vehicleCards.Count > 0)
             {
-                flpproducts.Controls.Add(card); // Assuming flpProducts is your FlowLayoutPanel
+                foreach (VehicleCard card in vehicleCards)
+                {
+                    flpproducts.Controls.Add(card);
+                }
+            }
+            else
+            {
+                
+                MessageBox.Show("No Cars Avilable", "Ooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        private void flpproducts_Paint_1(object sender, PaintEventArgs e)
+        {
+        }
     }
 }

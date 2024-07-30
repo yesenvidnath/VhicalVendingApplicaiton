@@ -23,6 +23,68 @@ namespace WindowsFormsApp1.Funtions
             this.dbconnect = new dbconnect();
         }
 
+
+        //Car List
+        public List<VehicleCard> GetVehicleCardsByBrand(String brandName = null)
+        {
+            List<VehicleCard> cards = new List<VehicleCard>();
+            this.dbconnect.OpenConnection();
+
+            // Updated SQL query with explicit column references and aliases
+            string query = "SELECT c.Model, c.Make, c.Year, c.Price, c.Image, b.BrandName " +
+                   "FROM Cars c JOIN Brands b ON c.BrandID = b.BrandID";
+
+
+            // Load the Cars in to the Car listing Grid Regadless of brand been selected
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                query += " WHERE b.BrandName = @BrandName";
+            }
+
+            SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                cmd.Parameters.AddWithValue("@BrandName", brandName);
+            }
+
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string model = reader.IsDBNull(0) ? "" : reader.GetString(0);
+                        string make = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                        int year = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                        decimal price = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                        string image = reader.IsDBNull(4) ? "default_path.jpg" : reader.GetString(4);
+                        string brand = reader.IsDBNull(5) ? "" : reader.GetString(5);
+
+                        VehicleCard card = new VehicleCard();
+                        card.SetCarInfo(model, brand, year, price, image);
+                        cards.Add(card);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("SQL Error : " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("General Error: " + ex.Message);
+            }
+            finally
+            {
+                this.dbconnect.CloseConnection();
+            }
+
+            return cards;
+        }
+
+
+        /*
         //Car List
         public List<VehicleCard> GetVehicleCards()
         {
@@ -69,7 +131,7 @@ namespace WindowsFormsApp1.Funtions
 
             return cards;
         }
-
+        */
 
         // Brand List
         public List<BrandsList> GetBrands()
