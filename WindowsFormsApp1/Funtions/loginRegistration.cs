@@ -33,7 +33,7 @@ namespace WindowsFormsApp1.Funtions
 
                 int userExists = (int)checkUserCmd.ExecuteScalar();
 
-                if (userExists > 0) 
+                if (userExists > 0)
                 {
                     Console.WriteLine("User Name Already Exisits");
                     return false;
@@ -70,14 +70,11 @@ namespace WindowsFormsApp1.Funtions
                 }
                 return true;
 
-
-
-
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); // Log the exception
-                return false; 
+                return false;
             }
             finally
             {
@@ -124,6 +121,5 @@ namespace WindowsFormsApp1.Funtions
 
             return (isAuthenticated, userId, role); // Return the tuple with all three values
         }
-
     }
 }

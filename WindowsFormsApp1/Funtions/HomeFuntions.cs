@@ -8,8 +8,10 @@ using System.Data;
 using System.Drawing;
 using System.Data.SqlClient;
 using WindowsFormsApp1.MainUserControls;
+using WindowsFormsApp1.Funtions; // insert the funtions 
 using WindowsFormsApp1;
 using System.IO;
+using static WindowsFormsApp1.Funtions.Cars;
 
 namespace WindowsFormsApp1.Funtions
 {
@@ -84,7 +86,7 @@ namespace WindowsFormsApp1.Funtions
         }
 
 
-        /*
+        /* Removed the Car list old funtion
         //Car List
         public List<VehicleCard> GetVehicleCards()
         {
@@ -169,6 +171,74 @@ namespace WindowsFormsApp1.Funtions
             }
 
             return brands;
+        }
+
+
+        public List<VehicleCard> GetVehicleCardsWithCarIDByBrand(string brandName = null)
+        {
+            List<VehicleCard> cards = new List<VehicleCard>();
+            dbconnect.OpenConnection();
+
+            // Updated SQL query with explicit column references and aliases, including CarID
+            string query = "SELECT c.CarID, c.Model, c.Make, c.Year, c.Price, c.Image, b.BrandName " +
+                           "FROM Cars c JOIN Brands b ON c.BrandID = b.BrandID";
+
+            // Load the Cars into the Car listing Grid regardless of brand being selected
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                query += " WHERE b.BrandName = @BrandName";
+            }
+
+            SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                cmd.Parameters.AddWithValue("@BrandName", brandName);
+            }
+
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int carID = reader.GetInt32(0);
+                        string model = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                        string make = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                        int year = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+                        decimal price = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                        string image = reader.IsDBNull(5) ? "default_path.jpg" : reader.GetString(5);
+                        string brand = reader.IsDBNull(6) ? "" : reader.GetString(6);
+
+                        VehicleCard card = new VehicleCard();
+                        card.SetCarInfoByID(carID, model, brand, year, price, image);
+                        cards.Add(card);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("SQL Error : " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("General Error: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return cards;
+        }
+
+
+
+        //Get car details methode 
+        public CarDetails GetCarDetails(int carId)
+        {
+            Cars cars = new Cars(); 
+            return cars.GetCarDetails(carId);
         }
     }
 }

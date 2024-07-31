@@ -17,14 +17,30 @@ namespace WindowsFormsApp1
 
         private HomeFuntions homeFunctions;
         private Label noCarsLabel;
+        private int userId;
 
-        public Home()
+        public Home(int userId = -1)
         {
             InitializeComponent();
             homeFunctions = new HomeFuntions(); // Initialize the instance
+
+            // Load the Nav Bar 
+            NavBar navBar = new NavBar();
+            navBar.Dock = DockStyle.Top;
+            this.Controls.Add(navBar);
+            navBar.SetLoggedInUser(userId); // Set the logged-in user's name on the NavBar 
+
             //Load Brands
             LoadBrands();
             LoadVehicleCards();
+
+            if (userId != -1)
+            {
+                Console.WriteLine("The user ID was made in to here ");
+               
+            }
+
+
         }
 
 
@@ -62,8 +78,21 @@ namespace WindowsFormsApp1
 
         private void LoadVehicleCards(string brandName = null) 
         {
+            HomeFuntions homeFunctions = new HomeFuntions();
+
             List<VehicleCard> vehicleCards = homeFunctions.GetVehicleCardsByBrand(brandName);
             flpproducts.Controls.Clear();
+
+
+            if (string.IsNullOrEmpty(brandName))
+            {
+                vehicleCards = homeFunctions.GetVehicleCardsWithCarIDByBrand();
+            }
+            else
+            {
+                vehicleCards = homeFunctions.GetVehicleCardsWithCarIDByBrand(brandName);
+            }
+
 
             // condition to display the cars regadless of the cound of items within the area
             if (vehicleCards.Count > 0)

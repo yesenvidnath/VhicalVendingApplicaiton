@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Funtions.Customer
 {
-    internal class OrderCarPart
+    internal class Order
     {
     }
 }

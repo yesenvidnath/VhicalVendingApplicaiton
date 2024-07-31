@@ -7,20 +7,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Funtions;
+using static WindowsFormsApp1.Funtions.Cars;
 
 namespace WindowsFormsApp1.MainUserControls
 {
     public partial class VehicleCard : UserControl
     {
+
+        public int CarID { get; set; }  
+
         public VehicleCard()
         {
             InitializeComponent();
-
-
+            btnseemore.Click += Btnseemore_Click;
         }
+
+        //Set the see more button event once it's clicked
+        private void Btnseemore_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine($"See More button clicked for CarID: {CarID}");
+
+            HomeFuntions homeFunctions = new HomeFuntions();
+            CarDetails carDetails = homeFunctions.GetCarDetails(CarID);
+
+            if (carDetails != null)
+            {
+                SingleCar singleCarForm = new SingleCar();
+                singleCarForm.SetCarDetails(carDetails);
+                singleCarForm.Show();
+            }
+            else
+            {
+                Console.WriteLine($"No car details found for CarID: {CarID}");
+                MessageBox.Show("Car details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void SetCarInfo(string carName, string brand, int year, decimal price, string imagePath)
         {
             lblcarname.Text = carName;
+            lblbrand.Text = brand;
+            lblyear.Text = year.ToString();
+            lblprice.Text = $"${price}";
+            imgbox.ImageLocation = imagePath;
+        }
+
+
+        public void SetCarInfoByID(int carID, string model, string brand, int year, decimal price, string imagePath)
+        {
+            CarID = carID;
+            lblcarname.Text = model;
             lblbrand.Text = brand;
             lblyear.Text = year.ToString();
             lblprice.Text = $"${price}";

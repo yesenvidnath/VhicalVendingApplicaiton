@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using WindowsFormsApp1.Funtions;
+using static WindowsFormsApp1.MainUserControls.NavBar;
 
 namespace WindowsFormsApp1
 {
@@ -52,7 +53,11 @@ namespace WindowsFormsApp1
 
             if (loginResult.isAuthenticated)
             {
-                var result = MessageBox.Show("El usuario es correcto, ¡hola amigo!","Success", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                // Store the logged-in user's ID and role in SessionManager
+                SessionManager.LoggedInUserId = loginResult.userId;
+                SessionManager.UserRole = loginResult.role;
+
+                var result = MessageBox.Show("El usuario es correcto, ¡hola amigo!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (result == DialogResult.OK)
                 {
@@ -63,14 +68,13 @@ namespace WindowsFormsApp1
                         this.Hide();
                         adminDashboard.Show();
                         adminDashboard.FormClosed += (s, args) => this.Close();
-
                     }
                     else if (loginResult.role == "Customer")
                     {
-                        Customer.Dashboard customerDashboard = new Customer.Dashboard();
+                        Home home = new Home(loginResult.userId); // Pass the userId to Home
                         this.Hide();
-                        customerDashboard.Show();
-                        customerDashboard.FormClosed += (s, args) => this.Close();
+                        home.Show();
+                        home.FormClosed += (s, args) => this.Close(); // Ensure the form is closed when Home is closed
                     }
                 }
             }

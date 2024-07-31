@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApp1.Funtions.Customer
+namespace WindowsFormsApp1.Funtions
 {
-    internal class OrderCar
+    internal class Cart
     {
     }
 }

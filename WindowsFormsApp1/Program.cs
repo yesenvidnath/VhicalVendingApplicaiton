@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Funtions;
+using WindowsFormsApp1.MainUserControls;
+using static WindowsFormsApp1.MainUserControls.NavBar;
 
 namespace WindowsFormsApp1
 {
@@ -17,6 +20,7 @@ namespace WindowsFormsApp1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Home());
+
         }
     }
 }
