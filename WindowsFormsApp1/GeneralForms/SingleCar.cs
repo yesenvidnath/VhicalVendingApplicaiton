@@ -24,8 +24,7 @@ namespace WindowsFormsApp1
             // Load the Nav Bar 
             NavBar navBar = new NavBar();
             navBar.Dock = DockStyle.Top;
-            this.Controls.Add(navBar);
-            navBar.SetLoggedInUser(userId); // Set the logged-in user's name on the NavBar 
+            this.Controls.Add(navBar); // Set the logged-in user's name on the NavBar 
         }
 
         public void SetCarDetails(CarDetails carDetails)

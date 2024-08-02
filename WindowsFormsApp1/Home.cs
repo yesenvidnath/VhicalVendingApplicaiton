@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Funtions;
 using WindowsFormsApp1.MainUserControls;
+using WindowsFormsApp1;
+using static WindowsFormsApp1.MainUserControls.NavBar;
 
 namespace WindowsFormsApp1
 {
@@ -24,20 +26,22 @@ namespace WindowsFormsApp1
             InitializeComponent();
             homeFunctions = new HomeFuntions(); // Initialize the instance
 
+            if (userId != -1)
+            {
+                SessionManager.LoggedInUserId = userId;
+            }
             // Load the Nav Bar 
             NavBar navBar = new NavBar();
             navBar.Dock = DockStyle.Top;
             this.Controls.Add(navBar);
-            navBar.SetLoggedInUser(userId); // Set the logged-in user's name on the NavBar 
 
             //Load Brands
             LoadBrands();
             LoadVehicleCards();
 
-            if (userId != -1)
+            if (SessionManager.LoggedInUserId != -1)
             {
-                Console.WriteLine("The user ID was made in to here ");
-               
+                Console.WriteLine("The user ID was passed to SessionManager and recognized by Home form.");
             }
 
 

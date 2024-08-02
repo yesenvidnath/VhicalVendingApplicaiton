@@ -22,9 +22,8 @@ namespace WindowsFormsApp1.MainUserControls
         public NavBar()
         {
             InitializeComponent();
-
-            //Create click events 
-
+            SetLoggedInUser();
+            //Create click events for lables
             lblhome.Click += lblhome_Click;
             lblsettings.Click += lblsettings_Click;
             lblorderlist.Click += lblorderlist_Click;
@@ -80,7 +79,7 @@ namespace WindowsFormsApp1.MainUserControls
             SessionManager.LoggedInUserId = -1;
             SessionManager.UserRole = string.Empty;
 
-            SetLoggedInUser(SessionManager.LoggedInUserId);
+            //SetLoggedInUser(SessionManager.LoggedInUserId);
         }
 
 
@@ -116,10 +115,11 @@ namespace WindowsFormsApp1.MainUserControls
             }
         }
 
-        public void SetLoggedInUser(int userId)
+        public void SetLoggedInUser()
         {
+            int userId = SessionManager.LoggedInUserId;
 
-            if(userId > 0)
+            if (userId > 0)
             {
                Customers customers = new Customers();
                var (firstName, lastName, _, _) = customers.GetCustomerInfo(userId);
@@ -129,11 +129,11 @@ namespace WindowsFormsApp1.MainUserControls
                     lblloggedusername.Text = $"Welcome {firstName} {lastName}";
                     btnloginlogout.Text = "Log Out"; // Set button text to "Log Out"
                }
-                else
-                {
+               else
+               {
                     lblloggedusername.Text = "Log in Now";
                     btnloginlogout.Text = "Login/Register";
-                }
+               }
 
             }
             else
@@ -142,7 +142,5 @@ namespace WindowsFormsApp1.MainUserControls
                 btnloginlogout.Text = "Login/Register";
             }
         }
-
- 
     }
 }
