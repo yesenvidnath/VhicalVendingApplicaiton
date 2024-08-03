@@ -55,7 +55,7 @@ namespace WindowsFormsApp1.MainUserControls
 
         private void lblorders_Click(object sender, EventArgs e)
         {
-            Orders orders = new Orders();
+            Customer.Orders orders = new Customer.Orders();
             orders.Show();
             this.ParentForm.Hide();
         }

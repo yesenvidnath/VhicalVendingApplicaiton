@@ -18,6 +18,7 @@ namespace WindowsFormsApp1.Funtions
             dbconnect = new dbconnect();
         }
 
+
         // Create Plublic class for getting car details
         public class CarDetails
         {
@@ -29,6 +30,7 @@ namespace WindowsFormsApp1.Funtions
             public int QuantityAvailable { get; set; }
             public string Image { get; set; }
         }
+
 
         public CarDetails GetCarDetails(int carId)
         {
@@ -83,5 +85,158 @@ namespace WindowsFormsApp1.Funtions
             return carDetails;
         }
 
+
+        // Insert a New Car
+        public bool InsertCar(int brandId, string model, string make, int year, decimal price, int quantityAvailable, string image)
+        {
+            string query = "INSERT INTO Cars (BrandID, Model, Make, Year, Price, QuantityAvailable, Image) VALUES (@BrandID, @Model, @Make, @Year, @Price, @QuantityAvailable, @Image)";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+                cmd.Parameters.AddWithValue("@BrandID", brandId);
+                cmd.Parameters.AddWithValue("@Model", model);
+                cmd.Parameters.AddWithValue("@Make", make);
+                cmd.Parameters.AddWithValue("@Year", year);
+                cmd.Parameters.AddWithValue("@Price", price);
+                cmd.Parameters.AddWithValue("@QuantityAvailable", quantityAvailable);
+                cmd.Parameters.AddWithValue("@Image", image);
+
+                int result = cmd.ExecuteNonQuery();
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error inserting car: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+        }
+
+
+        //Update an existing car 
+        public bool UpdateCar(int carId, int brandId, string model, string make, int year, decimal price, int quantityAvailable, string image)
+        {
+            string query = "UPDATE Cars SET BrandID = @BrandID, Model = @Model, Make = @Make, Year = @Year, Price = @Price, QuantityAvailable = @QuantityAvailable, Image = @Image WHERE CarID = @CarID";
+
+            try
+            {
+                dbconnect.OpenConnection();
+
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+                cmd.Parameters.AddWithValue("@CarID", carId);
+                cmd.Parameters.AddWithValue("@BrandID", brandId);
+                cmd.Parameters.AddWithValue("@Model", model);
+                cmd.Parameters.AddWithValue("@Make", make);
+                cmd.Parameters.AddWithValue("@Year", year);
+                cmd.Parameters.AddWithValue("@Price", price);
+                cmd.Parameters.AddWithValue("@QuantityAvailable", quantityAvailable);
+                cmd.Parameters.AddWithValue("@Image", image);
+
+                int result = cmd.ExecuteNonQuery();
+                return result > 0; 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating car: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+        }
+
+
+        // Delete 
+        public bool DeleteCar(int carId)
+        {
+            string query = "DELETE FROM Cars WHERE CarID = @CarID";
+
+            try
+            {
+                dbconnect.OpenConnection();
+
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+                cmd.Parameters.AddWithValue("@CarID", carId);
+
+                int result = cmd.ExecuteNonQuery();
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting car: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+        }
+
+
+        // Search for a car by ID 
+        public List<Car> SearchCars(string model, string make, int year)
+        {
+            List<Car> cars = new List<Car>();
+            string searchQuery = "SELECT * FROM Cars WHERE CarModel = @Model AND CarMake = @Make AND CarYear = @Year";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(searchQuery, dbconnect.GetConnection());
+                cmd.Parameters.AddWithValue("@Model", model);
+                cmd.Parameters.AddWithValue("@Make", make);
+                cmd.Parameters.AddWithValue("@Year", year);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Car car = new Car
+                    {
+                        CarID = reader.GetInt32(0),
+                        Model = reader.GetString(1),
+                        Make = reader.GetString(2),
+                        Year = reader.GetInt32(3),
+                        // Map other properties
+                    };
+                    cars.Add(car);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error searching cars: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return cars;
+        }
+    }
+
+
+    // Car class to hold the data
+    public class Car
+    {
+        public int CarID { get; set; }
+        public int BrandID { get; set; }
+        public string Model { get; set; }
+        public string Make { get; set; }
+        public int Year { get; set; }
+        public decimal Price { get; set; }
+        public int QuantityAvailable { get; set; }
+        public string Image { get; set; }
     }
 }

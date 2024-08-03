@@ -116,5 +116,10 @@ namespace WindowsFormsApp1
         private void flpproducts_Paint_1(object sender, PaintEventArgs e)
         {
         }
+
+        private void flpbrands_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -48,6 +48,7 @@
             this.flpbrands.Name = "flpbrands";
             this.flpbrands.Size = new System.Drawing.Size(1163, 53);
             this.flpbrands.TabIndex = 2;
+            this.flpbrands.Paint += new System.Windows.Forms.PaintEventHandler(this.flpbrands_Paint);
             // 
             // Home
             // 

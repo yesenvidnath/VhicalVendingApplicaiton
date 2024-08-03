@@ -134,12 +134,11 @@
     <Compile Include="Funtions\Cart.cs" />
     <Compile Include="Funtions\Admin\Brands.cs" />
     <Compile Include="Funtions\Profile.cs" />
-    <Compile Include="Funtions\Customer\Order.cs" />
+    <Compile Include="Funtions\Orders.cs" />
     <Compile Include="Funtions\Customer\Customer.cs" />
     <Compile Include="Funtions\loginRegistration.cs" />
     <Compile Include="Funtions\Admin\CarParts.cs" />
     <Compile Include="Funtions\Admin\Cars.cs" />
-    <Compile Include="Funtions\Orders.cs" />
     <Compile Include="Funtions\Admin\Reports.cs" />
     <Compile Include="Funtions\Admin\Users.cs" />
     <Compile Include="login.cs">
