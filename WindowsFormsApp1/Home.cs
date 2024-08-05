@@ -38,13 +38,6 @@ namespace WindowsFormsApp1
             //Load Brands
             LoadBrands();
             LoadVehicleCards();
-
-            if (SessionManager.LoggedInUserId != -1)
-            {
-                Console.WriteLine("The user ID was passed to SessionManager and recognized by Home form.");
-            }
-
-
         }
 
 
@@ -120,6 +113,11 @@ namespace WindowsFormsApp1
         private void flpbrands_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void guna2GradientButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("El usuario no es correcto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

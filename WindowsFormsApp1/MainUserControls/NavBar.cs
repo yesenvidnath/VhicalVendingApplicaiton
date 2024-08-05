@@ -115,6 +115,7 @@ namespace WindowsFormsApp1.MainUserControls
             }
         }
 
+        //Setting the logged in user 
         public void SetLoggedInUser()
         {
             int userId = SessionManager.LoggedInUserId;
@@ -141,6 +142,13 @@ namespace WindowsFormsApp1.MainUserControls
                 lblloggedusername.Text = "Log In Now";
                 btnloginlogout.Text = "Login/Register";
             }
+        }
+
+
+        // Function to update the cart item count label
+        public void UpdateCartItemCount(int totalItems)
+        {
+            lblcartitemcount.Text = totalItems.ToString();
         }
     }
 }

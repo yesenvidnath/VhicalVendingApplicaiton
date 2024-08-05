@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Funtions;
 using static WindowsFormsApp1.Funtions.Cars;
+using static WindowsFormsApp1.MainUserControls.NavBar;
 
 namespace WindowsFormsApp1.MainUserControls
 {
     public partial class VehicleCard : UserControl
     {
+
+        private int carId;
+        private int customerId;
+        private Cart cart;
 
         public int CarID { get; set; }  
 
@@ -21,6 +26,9 @@ namespace WindowsFormsApp1.MainUserControls
         {
             InitializeComponent();
             btnseemore.Click += Btnseemore_Click;
+            // Get the logged in customer ID 
+            cart = new Cart();
+            customerId = SessionManager.LoggedInUserId;
         }
 
         //Set the see more button event once it's clicked
@@ -76,8 +84,9 @@ namespace WindowsFormsApp1.MainUserControls
 
         private void btnaddlist_Click(object sender, EventArgs e)
         {
-            
+
         }
+
 
         private void btnseemore_Click(object sender, EventArgs e)
         {
