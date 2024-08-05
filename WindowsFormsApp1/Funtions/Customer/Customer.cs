@@ -224,5 +224,26 @@ namespace WindowsFormsApp1.Funtions.Customer
 
             return (firstName, lastName, email, phone);
         }
+
+
+        public int GetCustomerIdByUserId(int userId)
+        {
+            int customerId = 0;
+            string query = "SELECT CustomerID FROM Customers WHERE UserID = @UserID";
+
+            SqlCommand command = new SqlCommand(query, dbconnect.GetConnection());
+            command.Parameters.AddWithValue("@UserID", userId);
+
+            dbconnect.OpenConnection();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                customerId = Convert.ToInt32(reader["CustomerID"]);
+            }
+            reader.Close();
+            dbconnect.CloseConnection();
+
+            return customerId;
+        }
     }
 }

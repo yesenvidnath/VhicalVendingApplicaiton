@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Customer;
+using WindowsFormsApp1.Funtions;
 using WindowsFormsApp1.Funtions.Customer;
 
 namespace WindowsFormsApp1.MainUserControls
@@ -23,7 +24,7 @@ namespace WindowsFormsApp1.MainUserControls
         {
             InitializeComponent();
             SetLoggedInUser();
-            //Create click events for lables
+            // Create click events for labels
             lblhome.Click += lblhome_Click;
             lblsettings.Click += lblsettings_Click;
             lblorderlist.Click += lblorderlist_Click;
@@ -31,9 +32,9 @@ namespace WindowsFormsApp1.MainUserControls
             lblloggedusername.Click += lblloggedusername_Click;
         }
 
-        // Creat Nav Lable click event funtions
-       private void lblhome_Click(object sender, EventArgs e)
-       {
+        // Create Nav Label click event functions
+        private void lblhome_Click(object sender, EventArgs e)
+        {
             Home homeForm = new Home(SessionManager.LoggedInUserId);
             homeForm.ShowDialog();
             this.ParentForm.Hide();
@@ -41,14 +42,14 @@ namespace WindowsFormsApp1.MainUserControls
 
         private void lblsettings_Click(object sender, EventArgs e)
         {
-            Profile profileForm = new Profile();
+            Customer.Profile profileForm = new Customer.Profile();
             profileForm.Show();
             this.ParentForm.Hide();
         }
 
         private void lblorderlist_Click(object sender, EventArgs e)
         {
-            OrderList orderlist = new OrderList();
+            Customer.OrderList orderlist = new Customer.OrderList();
             orderlist.Show();
             this.ParentForm.Hide();
         }
@@ -62,8 +63,7 @@ namespace WindowsFormsApp1.MainUserControls
 
         private void lblloggedusername_Click(object sender, EventArgs e)
         {
-
-            Profile profile = new Profile();
+            Customer.Profile profile = new Customer.Profile();
             profile.Show();
             this.ParentForm.Hide();
         }
@@ -74,21 +74,26 @@ namespace WindowsFormsApp1.MainUserControls
             public static string UserRole { get; set; } = string.Empty;
         }
 
+
         public void LogOutUser()
         {
             SessionManager.LoggedInUserId = -1;
             SessionManager.UserRole = string.Empty;
 
-            //SetLoggedInUser(SessionManager.LoggedInUserId);
+            // Optionally, reset other session-related information here if needed
+
+            // Show the login form after logout
+            this.ParentForm.Hide();
+            Home home = new Home();
+            home.Show();
         }
 
 
         private void btnloginlogout_Click(object sender, EventArgs e)
         {
-
             if (btnloginlogout.Text == "Log Out")
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to exit?", "COnfirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
@@ -98,43 +103,42 @@ namespace WindowsFormsApp1.MainUserControls
             else if (btnloginlogout.Text == "Login/Register")
             {
                 DialogResult result = MessageBox.Show("Are you an existing customer?", "Login/Register", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (result == DialogResult.Yes)
                 {
-
                     this.ParentForm.Hide();
-                    login Login = new login();
-                    Login.Show();
+                    login loginForm = new login();
+                    loginForm.Show();
                 }
                 else
                 {
                     this.ParentForm.Hide();
-                    Register register = new Register();
-                    register.Show();
+                    Register registerForm = new Register();
+                    registerForm.Show();
                 }
             }
         }
 
+        // Set the logged-in user
         public void SetLoggedInUser()
         {
             int userId = SessionManager.LoggedInUserId;
 
             if (userId > 0)
             {
-               Customers customers = new Customers();
-               var (firstName, lastName, _, _) = customers.GetCustomerInfo(userId);
+                Customers customers = new Customers();
+                var (firstName, lastName, _, _) = customers.GetCustomerInfo(userId);
 
-               if (!string.IsNullOrEmpty(firstName) || !string.IsNullOrEmpty(lastName))
-               {
+                if (!string.IsNullOrEmpty(firstName) || !string.IsNullOrEmpty(lastName))
+                {
                     lblloggedusername.Text = $"Welcome {firstName} {lastName}";
                     btnloginlogout.Text = "Log Out"; // Set button text to "Log Out"
-               }
-               else
-               {
+                }
+                else
+                {
                     lblloggedusername.Text = "Log in Now";
                     btnloginlogout.Text = "Login/Register";
-               }
-
+                }
             }
             else
             {
@@ -142,5 +146,23 @@ namespace WindowsFormsApp1.MainUserControls
                 btnloginlogout.Text = "Login/Register";
             }
         }
+
+        /*
+        public void UpdateCartItemCount()
+        {
+            int customerId = SessionManager.LoggedInUserId;
+
+            if (customerId > 0)
+            {
+                Cart cart = new Cart();
+                int totalCartItems = cart.GetCartItemCount(customerId);
+
+                lblcartitemcount.Text = totalCartItems.ToString();
+            }
+            else
+            {
+                lblcartitemcount.Text = "0";
+            }
+        }*/
     }
 }

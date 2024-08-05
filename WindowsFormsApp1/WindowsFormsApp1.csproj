@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Guna.UI2-2">
-      <HintPath>..\..\..\..\..\..\..\Guna.UI2-2\Guna.UI2-2.dll</HintPath>
+    <Reference Include="Guna.UI2">
+      <HintPath>..\..\..\..\Downloads\Guna\Guna.UI2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -51,83 +51,83 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AdminLogin.cs">
+    <Compile Include="GUI\Admin\AdminLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\AdminLogin.Designer.cs">
+    <Compile Include="GUI\Admin\AdminLogin.Designer.cs">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Dashboard.cs">
+    <Compile Include="GUI\Admin\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\Dashboard.Designer.cs">
+    <Compile Include="GUI\Admin\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ManageBrands.cs">
+    <Compile Include="GUI\Admin\ManageBrands.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\ManageBrands.Designer.cs">
+    <Compile Include="GUI\Admin\ManageBrands.Designer.cs">
       <DependentUpon>ManageBrands.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ManageCars.cs">
+    <Compile Include="GUI\Admin\ManageCars.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\ManageCars.Designer.cs">
+    <Compile Include="GUI\Admin\ManageCars.Designer.cs">
       <DependentUpon>ManageCars.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ManageOrders.cs">
+    <Compile Include="GUI\Admin\ManageOrders.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\ManageOrders.Designer.cs">
+    <Compile Include="GUI\Admin\ManageOrders.Designer.cs">
       <DependentUpon>ManageOrders.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ManageReports.cs">
+    <Compile Include="GUI\Admin\ManageReports.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\ManageReports.Designer.cs">
+    <Compile Include="GUI\Admin\ManageReports.Designer.cs">
       <DependentUpon>ManageReports.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ManageUsers.cs">
+    <Compile Include="GUI\Admin\ManageUsers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\ManageUsers.Designer.cs">
+    <Compile Include="GUI\Admin\ManageUsers.Designer.cs">
       <DependentUpon>ManageUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Profile.cs">
+    <Compile Include="GUI\Admin\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Admin\Profile.Designer.cs">
+    <Compile Include="GUI\Admin\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer\Dashboard.cs">
+    <Compile Include="GUI\Customer\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer\Dashboard.Designer.cs">
+    <Compile Include="GUI\Customer\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer\OrderList.cs">
+    <Compile Include="GUI\Customer\OrderList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer\OrderList.Designer.cs">
+    <Compile Include="GUI\Customer\OrderList.Designer.cs">
       <DependentUpon>OrderList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer\Orders.cs">
+    <Compile Include="GUI\Customer\Orders.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer\Orders.Designer.cs">
+    <Compile Include="GUI\Customer\Orders.Designer.cs">
       <DependentUpon>Orders.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer\Profile.cs">
+    <Compile Include="GUI\Customer\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer\Profile.Designer.cs">
+    <Compile Include="GUI\Customer\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="Funtions\HomeFuntions.cs" />
-    <Compile Include="GeneralForms\Cars.cs">
+    <Compile Include="GUI\SingleForms\Cars.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GeneralForms\Cars.Designer.cs">
+    <Compile Include="GUI\SingleForms\Cars.Designer.cs">
       <DependentUpon>Cars.cs</DependentUpon>
     </Compile>
     <Compile Include="dbconnect.cs" />
@@ -141,75 +141,75 @@
     <Compile Include="Funtions\Admin\Cars.cs" />
     <Compile Include="Funtions\Admin\Reports.cs" />
     <Compile Include="Funtions\Admin\Users.cs" />
-    <Compile Include="login.cs">
+    <Compile Include="GUI\login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="login.Designer.cs">
+    <Compile Include="GUI\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Home.cs">
+    <Compile Include="GUI\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Home.Designer.cs">
+    <Compile Include="GUI\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainUserControls\BrandsList.cs">
+    <Compile Include="GUI\MainUserControls\BrandsList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MainUserControls\BrandsList.Designer.cs">
+    <Compile Include="GUI\MainUserControls\BrandsList.Designer.cs">
       <DependentUpon>BrandsList.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainUserControls\NavBar.cs">
+    <Compile Include="GUI\MainUserControls\NavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MainUserControls\NavBar.Designer.cs">
+    <Compile Include="GUI\MainUserControls\NavBar.Designer.cs">
       <DependentUpon>NavBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainUserControls\VehicleCard.cs">
+    <Compile Include="GUI\MainUserControls\VehicleCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MainUserControls\VehicleCard.Designer.cs">
+    <Compile Include="GUI\MainUserControls\VehicleCard.Designer.cs">
       <DependentUpon>VehicleCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GeneralForms\RegistrationFrom.cs">
+    <Compile Include="GUI\SingleForms\RegistrationFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GeneralForms\RegistrationFrom.Designer.cs">
+    <Compile Include="GUI\SingleForms\RegistrationFrom.Designer.cs">
       <DependentUpon>RegistrationFrom.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneralForms\SingleCar.cs">
+    <Compile Include="GUI\SingleForms\SingleCar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GeneralForms\SingleCar.Designer.cs">
+    <Compile Include="GUI\SingleForms\SingleCar.Designer.cs">
       <DependentUpon>SingleCar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Register.cs">
+    <Compile Include="GUI\Register.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Register.Designer.cs">
+    <Compile Include="GUI\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Customer\Profile.resx">
+    <EmbeddedResource Include="GUI\Customer\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GeneralForms\SingleCar.resx">
+    <EmbeddedResource Include="GUI\SingleForms\SingleCar.resx">
       <DependentUpon>SingleCar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Home.resx">
+    <EmbeddedResource Include="GUI\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="login.resx">
+    <EmbeddedResource Include="GUI\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainUserControls\BrandsList.resx">
+    <EmbeddedResource Include="GUI\MainUserControls\BrandsList.resx">
       <DependentUpon>BrandsList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainUserControls\NavBar.resx">
+    <EmbeddedResource Include="GUI\MainUserControls\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainUserControls\VehicleCard.resx">
+    <EmbeddedResource Include="GUI\MainUserControls\VehicleCard.resx">
       <DependentUpon>VehicleCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -222,7 +222,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Register.resx">
+    <EmbeddedResource Include="GUI\Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -241,7 +241,7 @@
   <ItemGroup>
     <Content Include="Assets\Img\logo-defult.png" />
     <Content Include="Assets\Img\vehical-defoult.png" />
-    <Content Include="DBInfo.txt" />
+    <Content Include="README\DBInfo.txt" />
     <None Include="Resources\Group 18 %282%29.png" />
     <None Include="Resources\9111199_cart_icon.png" />
   </ItemGroup>
