@@ -12,19 +12,18 @@ using WindowsFormsApp1.Funtions; // insert the funtions
 using WindowsFormsApp1;
 using System.IO;
 using static WindowsFormsApp1.Funtions.Cars;
+using WindowsFormsApp1.GUI.MainUserControls;
 
 namespace WindowsFormsApp1.Funtions
 {
     public class HomeFuntions
     {
-
         private dbconnect dbconnect;
 
         public HomeFuntions()
         {
             this.dbconnect = new dbconnect();
         }
-
 
         //Car List
         public List<VehicleCard> GetVehicleCardsByBrand(String brandName = null)
@@ -86,55 +85,6 @@ namespace WindowsFormsApp1.Funtions
         }
 
 
-        /* Removed the Car list old funtion
-        //Car List
-        public List<VehicleCard> GetVehicleCards()
-        {
-            List<VehicleCard> cards = new List<VehicleCard>();
-            this.dbconnect.OpenConnection();
-            // Updated SQL query with explicit column references and aliases
-            SqlCommand cmd = new SqlCommand(
-                "SELECT c.Model, b.BrandName, c.Year, c.Price, c.Image FROM Cars c " +
-                "JOIN Brands b ON c.BrandID = b.BrandID", this.dbconnect.GetConnection());
-
-            try
-            {
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string model = reader.IsDBNull(0) ? "" : reader.GetString(0);
-                        string brand = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                        int year = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
-                        decimal price = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
-                        string basePath = AppDomain.CurrentDomain.BaseDirectory;
-                        string relativePath = @"Assets\Img\";
-                        string defaultImage = "vehical-default.png";
-                        string imagePath = reader.IsDBNull(4) ? Path.Combine(basePath, relativePath, defaultImage) : Path.Combine(basePath, relativePath, reader.GetString(4));
-
-                        VehicleCard card = new VehicleCard();
-                        card.SetCarInfo(model, brand, year, price, imagePath);
-                        cards.Add(card);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("SQL Error : " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("General Error: " + ex.Message);
-            }
-            finally
-            {
-                this.dbconnect.CloseConnection();
-            }
-
-            return cards;
-        }
-        */
-
         // Brand List
         public List<BrandsList> GetBrands()
         {
@@ -172,7 +122,6 @@ namespace WindowsFormsApp1.Funtions
 
             return brands;
         }
-
 
         public List<VehicleCard> GetVehicleCardsWithCarIDByBrand(string brandName = null)
         {
@@ -233,6 +182,68 @@ namespace WindowsFormsApp1.Funtions
         }
 
 
+        public List<PartsCard> GetPartsCardsByBrand(string brandName = null)
+        {
+            List<PartsCard> partsCards = new List<PartsCard>();
+            string query = "SELECT PartID, PartName, Description, Price, QuantityAvailable, Image, BrandID FROM CarParts ";
+
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                query += "JOIN Brands ON CarParts.BrandID = Brands.BrandID WHERE Brands.BrandName = @BrandName";
+            }
+
+            SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                cmd.Parameters.AddWithValue("@BrandName", brandName);
+            }
+
+            dbconnect.OpenConnection();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    try
+                    {
+                        PartsCard card = new PartsCard();
+                        string partName = reader["PartName"].ToString();
+                        decimal price = reader.GetDecimal(reader.GetOrdinal("Price"));
+                        int quantityAvailable = reader.GetInt32(reader.GetOrdinal("QuantityAvailable"));
+                        string imagePath = reader["Image"].ToString();
+
+                        Console.WriteLine($"Retrieved - PartName: {partName}, Price: {price}, Quantity: {quantityAvailable}, ImagePath: {imagePath}");
+
+                        card.SetPartInfo(partName, price, quantityAvailable, imagePath);
+                        partsCards.Add(card);
+                    }
+                    catch (InvalidCastException ex)
+                    {
+                        Console.WriteLine($"Error casting data: {ex.Message}");
+                    }
+                }
+            }
+            dbconnect.CloseConnection();
+            return partsCards;
+        }
+
+
+        public List<VehicleCard> GetVehicleAndPartsCardsByBrand(string brandName = null)
+        {
+            var vehicleCards = GetVehicleCardsByBrand(brandName);
+            var partsCards = GetPartsCardsByBrand(brandName);
+            // Convert PartsCards to VehicleCards or use a common interface/base class
+            return vehicleCards.Concat(partsCards.Cast<VehicleCard>()).ToList();
+        }
+
+        public List<object> GetVehiclesAndPartsByBrand(string brandName = null)
+        {
+            var vehicleCards = GetVehicleCardsByBrand(brandName);
+            var partsCards = GetPartsCardsByBrand(brandName);
+
+            // Combine both lists into a single list of objects since they may not share a common base class or interface
+            List<object> combined = new List<object>(vehicleCards.Cast<object>().Concat(partsCards.Cast<object>()));
+            return combined;
+        }
 
         //Get car details methode 
         public CarDetails GetCarDetails(int carId)

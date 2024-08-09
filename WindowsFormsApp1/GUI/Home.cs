@@ -11,20 +11,22 @@ using WindowsFormsApp1.Funtions;
 using WindowsFormsApp1.MainUserControls;
 using WindowsFormsApp1;
 using static WindowsFormsApp1.MainUserControls.NavBar;
+using WindowsFormsApp1.GUI.MainUserControls;
 
 namespace WindowsFormsApp1
 {
     public partial class Home : Form
     {
-
         private HomeFuntions homeFunctions;
         private Label noCarsLabel;
         private int userId;
+        private string currentBrandName; // Holds the current selected brand name
 
         public Home(int userId = -1)
         {
             InitializeComponent();
-            homeFunctions = new HomeFuntions(); // Initialize the instance
+            // Initialize the instance
+            homeFunctions = new HomeFuntions(); 
 
             if (userId != -1)
             {
@@ -43,25 +45,8 @@ namespace WindowsFormsApp1
             {
                 Console.WriteLine("The user ID was passed to SessionManager and recognized by Home form.");
             }
-
-
         }
 
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Home_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flpproducts_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         //Load Brands 
         private void LoadBrands()
@@ -113,13 +98,82 @@ namespace WindowsFormsApp1
             }
         }
 
+        // Configuring the filter buttons, 
+        private void btnfiltercars_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("Filter Cars clicked.");
+            DisplayVehicles();
+        }
+
+        private void btncarparts_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("Car Parts clicked.");
+            DisplayParts();
+        }
+
+        private void btnall_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("Display All clicked.");
+            DisplayAll();
+        }
+
+        private void DisplayVehicles(string brandName = null)
+        {
+            var cards = homeFunctions.GetVehicleCardsByBrand(brandName);
+            flpproducts.Controls.Clear();
+            foreach (var card in cards)
+            {
+                flpproducts.Controls.Add(card);
+            }
+        }
+
+        private void DisplayParts(string brandName = null)
+        {
+            var cards = homeFunctions.GetPartsCardsByBrand(brandName);
+            flpproducts.Controls.Clear();
+            foreach (var card in cards)
+            {
+                flpproducts.Controls.Add(card);
+            }
+        }
+
+        private void DisplayAll(string brandName = null)
+        {
+            var combinedCards = homeFunctions.GetVehiclesAndPartsByBrand(brandName);
+            flpproducts.Controls.Clear();
+
+            foreach (var card in combinedCards)
+            {
+                if (card is VehicleCard vehicleCard)
+                {
+                    flpproducts.Controls.Add(vehicleCard);
+                }
+                else if (card is PartsCard partsCard)
+                {
+                    flpproducts.Controls.Add(partsCard);
+                }
+            }
+        }
+
         private void flpproducts_Paint_1(object sender, PaintEventArgs e)
         {
         }
-
         private void flpbrands_Paint(object sender, PaintEventArgs e)
         {
 
         }
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void Home_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void flpproducts_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
     }
 }

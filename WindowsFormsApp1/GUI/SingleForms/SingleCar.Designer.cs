@@ -171,6 +171,7 @@
             this.btnaddtolist.TabIndex = 30;
             this.btnaddtolist.Text = "Add to List";
             this.btnaddtolist.UseVisualStyleBackColor = true;
+            this.btnaddtolist.Click += new System.EventHandler(this.btnaddtolist_Click);
             // 
             // btnbuynow
             // 

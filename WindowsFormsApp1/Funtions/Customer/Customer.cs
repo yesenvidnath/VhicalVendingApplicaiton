@@ -228,22 +228,34 @@ namespace WindowsFormsApp1.Funtions.Customer
 
         public int GetCustomerIdByUserId(int userId)
         {
-            int customerId = 0;
-            string query = "SELECT CustomerID FROM Customers WHERE UserID = @UserID";
-
-            SqlCommand command = new SqlCommand(query, dbconnect.GetConnection());
-            command.Parameters.AddWithValue("@UserID", userId);
-
-            dbconnect.OpenConnection();
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
+            int customerId = -1; // Default to -1 meaning no customer found
+            try
             {
-                customerId = Convert.ToInt32(reader["CustomerID"]);
+                dbconnect.OpenConnection();
+                SqlCommand command = new SqlCommand("SELECT CustomerID FROM Customers WHERE UserID = @UserID", dbconnect.GetConnection());
+                command.Parameters.AddWithValue("@UserID", userId);
+
+                object result = command.ExecuteScalar();
+                if (result != null)
+                {
+                    customerId = Convert.ToInt32(result);
+                }
+                else
+                {
+                    Console.WriteLine("No customer found with UserID: " + userId); // Debugging output
+                }
             }
-            reader.Close();
-            dbconnect.CloseConnection();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving CustomerID: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
 
             return customerId;
         }
+
     }
 }

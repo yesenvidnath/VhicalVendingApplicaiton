@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Funtions;
 using WindowsFormsApp1.Funtions.Admin;
+using WindowsFormsApp1.Funtions.Customer;
 using static WindowsFormsApp1.Funtions.Cars;
+using static WindowsFormsApp1.Funtions.HomeFuntions;
 using static WindowsFormsApp1.MainUserControls.NavBar;
 
 namespace WindowsFormsApp1.MainUserControls
@@ -34,6 +36,8 @@ namespace WindowsFormsApp1.MainUserControls
             customerId = SessionManager.LoggedInUserId;
         }
 
+
+
         // Set the "See More" button event once it's clicked
         private void Btnseemore_Click(object sender, EventArgs e)
         {
@@ -45,7 +49,11 @@ namespace WindowsFormsApp1.MainUserControls
             if (carDetails != null)
             {
                 SingleCar singleCarForm = new SingleCar();
+
+                // Set the CarID before showing the form
+                singleCarForm.CarID = CarID;
                 singleCarForm.SetCarDetails(carDetails);
+
                 singleCarForm.Show();
             }
             else
@@ -55,24 +63,36 @@ namespace WindowsFormsApp1.MainUserControls
             }
         }
 
+
         // Event handler for adding the item to the cart
         private void Btnaddlist_Click(object sender, EventArgs e)
         {
             try
             {
-                // Assuming a default quantity of 1 when adding to the cart
-                int quantity = 1;
+                if (customerId > 0) // Ensure customer is logged in
+                {
+                    int quantity = 1; // You can modify this as needed
 
-                // Add to cart using the CarID and CustomerID
-                cart.AddToCart(customerId, CarID, quantity);
+                    // Add the item to the cart
+                    cart.AddToCart(customerId, CarID, quantity);
 
-                // Display success message
-                MessageBox.Show("Item added to cart successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Show confirmation message
+                    MessageBox.Show("Item added to cart successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Refresh the cart item count in the navigation bar
+                    if (this.ParentForm != null && this.ParentForm.Controls["navbar"] is NavBar navBar)
+                    {
+                        navBar.UpdateCartItemCount();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must be logged in to add items to the cart.", "Login Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                // Handle any errors that may occur
-                MessageBox.Show($"Failed to add item to cart: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred while adding the item to the cart: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -85,6 +105,7 @@ namespace WindowsFormsApp1.MainUserControls
             lblprice.Text = $"${price}";
             imgbox.ImageLocation = imagePath;
         }
+
         public void SetCarInfoByID(int carID, string model, string brand, int year, decimal price, string imagePath)
         {
             CarID = carID;

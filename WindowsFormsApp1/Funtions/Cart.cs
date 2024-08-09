@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WindowsFormsApp1.Funtions.Customer;
 
 namespace WindowsFormsApp1.Funtions
@@ -21,6 +22,8 @@ namespace WindowsFormsApp1.Funtions
             customers = new Customers();
             cars = new Cars();
         }
+
+
 
 
         public void AddToCart(int userId, int carId, int quantity)
@@ -98,5 +101,40 @@ namespace WindowsFormsApp1.Funtions
             updateCommand.ExecuteNonQuery();
             dbconnect.CloseConnection();
         }
+
+
+        public int GetTotalCartItemsQuantity(int customerId)
+        {
+            int totalQuantity = 0;
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand command = new SqlCommand("SELECT SUM(Quantity) FROM CartItems WHERE CustomerID = @CustomerID", dbconnect.GetConnection());
+                command.Parameters.AddWithValue("@CustomerID", customerId);
+
+                object result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    totalQuantity = Convert.ToInt32(result);
+                    Console.WriteLine("Total Quantity Retrieved: " + totalQuantity); // Debugging output
+                }
+                else
+                {
+                    Console.WriteLine("No items found for customer ID: " + customerId); // Debugging output
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving total cart items quantity: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return totalQuantity;
+        }
+
+
     }
 }

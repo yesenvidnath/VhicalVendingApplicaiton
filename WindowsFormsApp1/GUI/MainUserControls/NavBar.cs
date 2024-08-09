@@ -24,6 +24,7 @@ namespace WindowsFormsApp1.MainUserControls
         {
             InitializeComponent();
             SetLoggedInUser();
+            UpdateCartItemCount();
             // Create click events for labels
             lblhome.Click += lblhome_Click;
             lblsettings.Click += lblsettings_Click;
@@ -147,22 +148,45 @@ namespace WindowsFormsApp1.MainUserControls
             }
         }
 
-        /*
         public void UpdateCartItemCount()
         {
-            int customerId = SessionManager.LoggedInUserId;
+            int userId = SessionManager.LoggedInUserId;
 
-            if (customerId > 0)
+            if (userId > 0)
             {
-                Cart cart = new Cart();
-                int totalCartItems = cart.GetCartItemCount(customerId);
+                Customers customers = new Customers();
+                int customerId = customers.GetCustomerIdByUserId(userId);
 
-                lblcartitemcount.Text = totalCartItems.ToString();
+                if (customerId > 0)
+                {
+                    Cart cart = new Cart();
+                    int totalCartItemsQuantity = cart.GetTotalCartItemsQuantity(customerId);
+
+                    if (totalCartItemsQuantity > 0)
+                    {
+                        lblcartitemcount.Text = totalCartItemsQuantity.ToString();
+                        Console.WriteLine("Cart Item Count Updated: " + totalCartItemsQuantity); // Debugging output
+                    }
+                    else
+                    {
+                        lblcartitemcount.Text = "0";
+                        Console.WriteLine("Cart is empty for customer ID: " + customerId); // Debugging output
+                    }
+                }
+                else
+                {
+                    lblcartitemcount.Text = "0";
+                    Console.WriteLine("No customer found for user ID: " + userId); // Debugging output
+                }
             }
             else
             {
                 lblcartitemcount.Text = "0";
+                Console.WriteLine("No user is logged in."); // Debugging output
             }
-        }*/
+        }
+
+
+
     }
 }

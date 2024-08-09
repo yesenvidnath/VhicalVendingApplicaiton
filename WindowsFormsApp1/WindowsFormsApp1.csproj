@@ -124,6 +124,12 @@
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="Funtions\HomeFuntions.cs" />
+    <Compile Include="GUI\MainUserControls\PartsCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\MainUserControls\PartsCard.Designer.cs">
+      <DependentUpon>PartsCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\SingleForms\Cars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +199,12 @@
     </Compile>
     <EmbeddedResource Include="GUI\Customer\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainUserControls\PartsCard.resx">
+      <DependentUpon>PartsCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SingleForms\Cars.resx">
+      <DependentUpon>Cars.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SingleForms\SingleCar.resx">
       <DependentUpon>SingleCar.cs</DependentUpon>
