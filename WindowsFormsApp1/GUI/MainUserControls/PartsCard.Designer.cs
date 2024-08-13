@@ -64,6 +64,7 @@
             this.btnseemore.TabIndex = 14;
             this.btnseemore.Text = "See More";
             this.btnseemore.UseVisualStyleBackColor = true;
+            this.btnseemore.Click += new System.EventHandler(this.btnseemore_Click_1);
             // 
             // btnaddlist
             // 
@@ -73,6 +74,7 @@
             this.btnaddlist.TabIndex = 13;
             this.btnaddlist.Text = "Add to List";
             this.btnaddlist.UseVisualStyleBackColor = true;
+            this.btnaddlist.Click += new System.EventHandler(this.btnaddlist_Click_1);
             // 
             // lblPrice
             // 

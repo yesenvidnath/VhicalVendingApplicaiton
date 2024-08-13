@@ -99,6 +99,12 @@
     <Compile Include="GUI\Admin\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\CustomerCart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomerCart.Designer.cs">
+      <DependentUpon>CustomerCart.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Customer\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,12 @@
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="Funtions\HomeFuntions.cs" />
+    <Compile Include="GUI\MainUserControls\CartItems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\MainUserControls\CartItems.Designer.cs">
+      <DependentUpon>CartItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MainUserControls\PartsCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,6 +189,12 @@
     <Compile Include="GUI\MainUserControls\VehicleCard.Designer.cs">
       <DependentUpon>VehicleCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SingleForms\SingleParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SingleForms\SingleParts.Designer.cs">
+      <DependentUpon>SingleParts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GUI\SingleForms\RegistrationFrom.cs">
@@ -197,8 +215,14 @@
     <Compile Include="GUI\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GUI\CustomerCart.resx">
+      <DependentUpon>CustomerCart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Customer\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainUserControls\CartItems.resx">
+      <DependentUpon>CartItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainUserControls\PartsCard.resx">
       <DependentUpon>PartsCard.cs</DependentUpon>
@@ -223,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainUserControls\VehicleCard.resx">
       <DependentUpon>VehicleCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SingleForms\SingleParts.resx">
+      <DependentUpon>SingleParts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

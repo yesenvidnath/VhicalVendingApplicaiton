@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WindowsFormsApp1.Customer;
 using WindowsFormsApp1.Funtions;
 using WindowsFormsApp1.Funtions.Customer;
+using WindowsFormsApp1.GUI;
 
 namespace WindowsFormsApp1.MainUserControls
 {
@@ -25,12 +26,14 @@ namespace WindowsFormsApp1.MainUserControls
             InitializeComponent();
             SetLoggedInUser();
             UpdateCartItemCount();
+
             // Create click events for labels
             lblhome.Click += lblhome_Click;
             lblsettings.Click += lblsettings_Click;
             lblorderlist.Click += lblorderlist_Click;
             lblorders.Click += lblorders_Click;
             lblloggedusername.Click += lblloggedusername_Click;
+            picboxcart.Click += Picboxcart_Click;
         }
 
         // Create Nav Label click event functions
@@ -75,6 +78,38 @@ namespace WindowsFormsApp1.MainUserControls
             public static string UserRole { get; set; } = string.Empty;
         }
 
+        //Display the Cart
+        private void Picboxcart_Click(object sender, EventArgs e)
+        {
+            // Check if the user is logged in
+            if (SessionManager.LoggedInUserId > 0)
+            {
+                // User is logged in, open the CustomerCart form
+                CustomerCart customerCartForm = new CustomerCart();
+                customerCartForm.ShowDialog();
+            }
+            else
+            {
+                // User is not logged in, show a message prompting them to log in
+                MessageBox.Show("Please log in to access your cart.", "Login Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void lblCartdisplay_Click(object sender, EventArgs e)
+        {
+            // Check if the user is logged in
+            if (SessionManager.LoggedInUserId > 0)
+            {
+                // User is logged in, open the CustomerCart form
+                CustomerCart customerCartForm = new CustomerCart();
+                customerCartForm.ShowDialog();
+            }
+            else
+            {
+                // User is not logged in, show a message prompting them to log in
+                MessageBox.Show("Please log in to access your cart.", "Login Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         public void LogOutUser()
         {
@@ -88,7 +123,6 @@ namespace WindowsFormsApp1.MainUserControls
             Home home = new Home();
             home.Show();
         }
-
 
         private void btnloginlogout_Click(object sender, EventArgs e)
         {
@@ -185,8 +219,5 @@ namespace WindowsFormsApp1.MainUserControls
                 Console.WriteLine("No user is logged in."); // Debugging output
             }
         }
-
-
-
     }
 }

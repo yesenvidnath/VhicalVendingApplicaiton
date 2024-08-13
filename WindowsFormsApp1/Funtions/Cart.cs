@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Funtions.Customer;
+using WindowsFormsApp1.MainUserControls;
 
 namespace WindowsFormsApp1.Funtions
 {
@@ -23,9 +24,7 @@ namespace WindowsFormsApp1.Funtions
             cars = new Cars();
         }
 
-
-
-
+        // Add to cart
         public void AddToCart(int userId, int carId, int quantity)
         {
             int customerId = customers.GetCustomerIdByUserId(userId);
@@ -70,8 +69,9 @@ namespace WindowsFormsApp1.Funtions
 
             dbconnect.CloseConnection();
         }
+   
 
-
+        // Remove from cart
         public void RemoveFromCart(int userId, int carId)
         {
             int customerId = customers.GetCustomerIdByUserId(userId);
@@ -102,7 +102,7 @@ namespace WindowsFormsApp1.Funtions
             dbconnect.CloseConnection();
         }
 
-
+        // Get the total cart items quntity
         public int GetTotalCartItemsQuantity(int customerId)
         {
             int totalQuantity = 0;
@@ -135,6 +135,69 @@ namespace WindowsFormsApp1.Funtions
             return totalQuantity;
         }
 
+        //Get cart items in to the list 
 
+        public List<CartItem> GetCartItems(int userId)
+        {
+            List<CartItem> cartItems = new List<CartItem>();
+
+            // Get the CustomerID based on the logged-in UserID
+            int customerId = customers.GetCustomerIdByUserId(userId);
+
+            string query = @"SELECT ci.CartItemID, ci.Quantity, ci.AddedOn, 
+                            ISNULL(c.Model, p.PartName) AS ItemName, 
+                            ISNULL(c.Price, p.Price) AS Price, 
+                            ISNULL(c.Image, p.Image) AS Image
+                     FROM CartItems ci
+                     LEFT JOIN Cars c ON ci.CarID = c.CarID
+                     LEFT JOIN CarParts p ON ci.PartID = p.PartID
+                     WHERE ci.CustomerID = @CustomerID";
+
+            SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+            cmd.Parameters.AddWithValue("@CustomerID", customerId);
+
+            dbconnect.OpenConnection();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    CartItem cartItem = new CartItem
+                    {
+                        CartItemID = reader.GetInt32(reader.GetOrdinal("CartItemID")),
+                        ItemName = reader.GetString(reader.GetOrdinal("ItemName")),
+                        Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                        Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
+                        ImagePath = reader.GetString(reader.GetOrdinal("Image"))
+                    };
+                    cartItems.Add(cartItem);
+                }
+            }
+            dbconnect.CloseConnection();
+
+            return cartItems;
+        }
+
+
+        public void RemoveFromCart(int cartItemId)
+        {
+            string deleteQuery = "DELETE FROM CartItems WHERE CartItemID = @CartItemID";
+            SqlCommand deleteCommand = new SqlCommand(deleteQuery, dbconnect.GetConnection());
+            deleteCommand.Parameters.AddWithValue("@CartItemID", cartItemId);
+
+            dbconnect.OpenConnection();
+            deleteCommand.ExecuteNonQuery();
+            dbconnect.CloseConnection();
+        }
+
+
+    }
+
+    public class CartItem
+    {
+        public int CartItemID { get; set; }
+        public string ItemName { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public string ImagePath { get; set; }
     }
 }

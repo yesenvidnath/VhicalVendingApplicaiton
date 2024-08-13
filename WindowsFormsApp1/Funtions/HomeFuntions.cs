@@ -25,18 +25,17 @@ namespace WindowsFormsApp1.Funtions
             this.dbconnect = new dbconnect();
         }
 
+
         //Car List
         public List<VehicleCard> GetVehicleCardsByBrand(String brandName = null)
         {
             List<VehicleCard> cards = new List<VehicleCard>();
             this.dbconnect.OpenConnection();
 
-            // Updated SQL query with explicit column references and aliases
-            string query = "SELECT c.Model, c.Make, c.Year, c.Price, c.Image, b.BrandName " +
-                   "FROM Cars c JOIN Brands b ON c.BrandID = b.BrandID";
+            // Include CarID in the SELECT clause
+            string query = "SELECT c.CarID, c.Model, c.Make, c.Year, c.Price, c.Image, b.BrandName " +
+                           "FROM Cars c JOIN Brands b ON c.BrandID = b.BrandID";
 
-
-            // Load the Cars in to the Car listing Grid Regadless of brand been selected
             if (!string.IsNullOrEmpty(brandName))
             {
                 query += " WHERE b.BrandName = @BrandName";
@@ -55,14 +54,16 @@ namespace WindowsFormsApp1.Funtions
                 {
                     while (reader.Read())
                     {
-                        string model = reader.IsDBNull(0) ? "" : reader.GetString(0);
-                        string make = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                        int year = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
-                        decimal price = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
-                        string image = reader.IsDBNull(4) ? "default_path.jpg" : reader.GetString(4);
-                        string brand = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                        int carId = reader.GetInt32(0); // Get CarID
+                        string model = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                        string make = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                        int year = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+                        decimal price = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                        string image = reader.IsDBNull(5) ? "default_path.jpg" : reader.GetString(5);
+                        string brand = reader.IsDBNull(6) ? "" : reader.GetString(6);
 
                         VehicleCard card = new VehicleCard();
+                        card.CarID = carId;  // Set CarID
                         card.SetCarInfo(model, brand, year, price, image);
                         cards.Add(card);
                     }
@@ -83,6 +84,7 @@ namespace WindowsFormsApp1.Funtions
 
             return cards;
         }
+
 
 
         // Brand List
@@ -118,7 +120,7 @@ namespace WindowsFormsApp1.Funtions
             finally
             {
                 dbconnect.CloseConnection();
-            }
+            } 
 
             return brands;
         }
@@ -130,12 +132,12 @@ namespace WindowsFormsApp1.Funtions
 
             // Updated SQL query with explicit column references and aliases, including CarID
             string query = "SELECT c.CarID, c.Model, c.Make, c.Year, c.Price, c.Image, b.BrandName " +
-                           "FROM Cars c JOIN Brands b ON c.BrandID = b.BrandID";
+                           "FROM Cars c JOIN Brands b ON c.BrandID = b.BrandID"; 
 
             // Load the Cars into the Car listing Grid regardless of brand being selected
             if (!string.IsNullOrEmpty(brandName))
             {
-                query += " WHERE b.BrandName = @BrandName";
+                query += " WHERE b.BrandName = @BrandName"; 
             }
 
             SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
@@ -143,7 +145,7 @@ namespace WindowsFormsApp1.Funtions
             if (!string.IsNullOrEmpty(brandName))
             {
                 cmd.Parameters.AddWithValue("@BrandName", brandName);
-            }
+            } 
 
             try
             {
@@ -181,11 +183,11 @@ namespace WindowsFormsApp1.Funtions
             return cards;
         }
 
-
+        // Part List
         public List<PartsCard> GetPartsCardsByBrand(string brandName = null)
         {
             List<PartsCard> partsCards = new List<PartsCard>();
-            string query = "SELECT PartID, PartName, Description, Price, QuantityAvailable, Image, BrandID FROM CarParts ";
+            string query = "SELECT PartID, PartName, Description, Price, QuantityAvailable, Image FROM CarParts ";
 
             if (!string.IsNullOrEmpty(brandName))
             {
@@ -203,23 +205,19 @@ namespace WindowsFormsApp1.Funtions
             {
                 while (reader.Read())
                 {
-                    try
-                    {
-                        PartsCard card = new PartsCard();
-                        string partName = reader["PartName"].ToString();
-                        decimal price = reader.GetDecimal(reader.GetOrdinal("Price"));
-                        int quantityAvailable = reader.GetInt32(reader.GetOrdinal("QuantityAvailable"));
-                        string imagePath = reader["Image"].ToString();
+                    PartsCard card = new PartsCard();
+                    int partId = reader.GetInt32(0);  // Ensure this is the correct column index for PartID
+                    string partName = reader.GetString(1);
+                    string description = reader.GetString(2);
+                    decimal price = reader.GetDecimal(3);
+                    int quantityAvailable = reader.GetInt32(4);
+                    string imagePath = reader.GetString(5);
 
-                        Console.WriteLine($"Retrieved - PartName: {partName}, Price: {price}, Quantity: {quantityAvailable}, ImagePath: {imagePath}");
+                    card.PartID = partId;  // Set PartID on the PartsCard
+                    card.SetPartInfo(partName, price, quantityAvailable, imagePath);
+                    partsCards.Add(card);
 
-                        card.SetPartInfo(partName, price, quantityAvailable, imagePath);
-                        partsCards.Add(card);
-                    }
-                    catch (InvalidCastException ex)
-                    {
-                        Console.WriteLine($"Error casting data: {ex.Message}");
-                    }
+                    Console.WriteLine($"Retrieved - PartID: {partId}, PartName: {partName}, Price: {price}, Quantity: {quantityAvailable}, ImagePath: {imagePath}");
                 }
             }
             dbconnect.CloseConnection();
@@ -239,7 +237,7 @@ namespace WindowsFormsApp1.Funtions
         {
             var vehicleCards = GetVehicleCardsByBrand(brandName);
             var partsCards = GetPartsCardsByBrand(brandName);
-
+              
             // Combine both lists into a single list of objects since they may not share a common base class or interface
             List<object> combined = new List<object>(vehicleCards.Cast<object>().Concat(partsCards.Cast<object>()));
             return combined;
@@ -251,5 +249,74 @@ namespace WindowsFormsApp1.Funtions
             Cars cars = new Cars(); 
             return cars.GetCarDetails(carId);
         }
+
+        // Fetch Part Details by PartID
+        public PartsDetails GetPartDetails(int partId)
+        {
+            string query = @"
+        SELECT 
+            p.PartID, 
+            p.PartName, 
+            p.Description, 
+            p.Price, 
+            p.QuantityAvailable, 
+            p.Image AS ImagePath, 
+            b.BrandName
+        FROM CarParts p
+        JOIN Brands b ON p.BrandID = b.BrandID 
+        WHERE p.PartID = @PartID";
+
+            SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+            cmd.Parameters.AddWithValue("@PartID", partId);
+
+            PartsDetails partDetails = null;
+
+            dbconnect.OpenConnection();
+            try
+            {
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        partDetails = new PartsDetails
+                        {
+                            PartID = reader.GetInt32(reader.GetOrdinal("PartID")),
+                            PartName = reader.GetString(reader.GetOrdinal("PartName")),
+                            Description = reader.GetString(reader.GetOrdinal("Description")),
+                            Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                            QuantityAvailable = reader.GetInt32(reader.GetOrdinal("QuantityAvailable")),
+                            ImagePath = reader.GetString(reader.GetOrdinal("ImagePath")),
+                            BrandName = reader.GetString(reader.GetOrdinal("BrandName"))
+                        };
+
+                        // Debug output
+                        Console.WriteLine($"Part Details Retrieved: {partDetails.PartName}, {partDetails.Description}, {partDetails.Price}, {partDetails.ImagePath}");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"SQL Error : {ex.Message}");
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return partDetails;
+        }
+
+        //Define PartsDetails Class
+        public class PartsDetails
+        {
+            public int PartID { get; set; }
+            public string PartName { get; set; }
+            public string Description { get; set; }
+            public decimal Price { get; set; }
+            public int QuantityAvailable { get; set; }
+            public string ImagePath { get; set; }
+            public string BrandName { get; set; }
+        }
+
     }
 }

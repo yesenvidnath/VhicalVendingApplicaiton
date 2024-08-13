@@ -32,15 +32,16 @@
             this.lblloggedusername = new System.Windows.Forms.Label();
             this.lblcartitemcount = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.picboxcart = new System.Windows.Forms.PictureBox();
             this.imguserimg = new System.Windows.Forms.PictureBox();
             this.lblhome = new System.Windows.Forms.Label();
             this.lblsettings = new System.Windows.Forms.Label();
             this.lblorderlist = new System.Windows.Forms.Label();
             this.lblorders = new System.Windows.Forms.Label();
             this.btnloginlogout = new System.Windows.Forms.Button();
+            this.lblCartdisplay = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxcart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imguserimg)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,15 +74,15 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox2
+            // picboxcart
             // 
-            this.pictureBox2.BackgroundImage = global::WindowsFormsApp1.Properties.Resources._9111199_cart_icon;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(1057, 8);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(33, 32);
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
+            this.picboxcart.BackgroundImage = global::WindowsFormsApp1.Properties.Resources._9111199_cart_icon;
+            this.picboxcart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picboxcart.Location = new System.Drawing.Point(1057, 8);
+            this.picboxcart.Name = "picboxcart";
+            this.picboxcart.Size = new System.Drawing.Size(33, 32);
+            this.picboxcart.TabIndex = 3;
+            this.picboxcart.TabStop = false;
             // 
             // imguserimg
             // 
@@ -99,7 +100,7 @@
             // 
             this.lblhome.AutoSize = true;
             this.lblhome.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblhome.Location = new System.Drawing.Point(274, 15);
+            this.lblhome.Location = new System.Drawing.Point(209, 15);
             this.lblhome.Name = "lblhome";
             this.lblhome.Size = new System.Drawing.Size(49, 18);
             this.lblhome.TabIndex = 6;
@@ -109,7 +110,7 @@
             // 
             this.lblsettings.AutoSize = true;
             this.lblsettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblsettings.Location = new System.Drawing.Point(387, 15);
+            this.lblsettings.Location = new System.Drawing.Point(319, 15);
             this.lblsettings.Name = "lblsettings";
             this.lblsettings.Size = new System.Drawing.Size(61, 18);
             this.lblsettings.TabIndex = 7;
@@ -119,7 +120,7 @@
             // 
             this.lblorderlist.AutoSize = true;
             this.lblorderlist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblorderlist.Location = new System.Drawing.Point(511, 15);
+            this.lblorderlist.Location = new System.Drawing.Point(429, 15);
             this.lblorderlist.Name = "lblorderlist";
             this.lblorderlist.Size = new System.Drawing.Size(73, 18);
             this.lblorderlist.TabIndex = 8;
@@ -129,7 +130,7 @@
             // 
             this.lblorders.AutoSize = true;
             this.lblorders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblorders.Location = new System.Drawing.Point(651, 15);
+            this.lblorders.Location = new System.Drawing.Point(557, 15);
             this.lblorders.Name = "lblorders";
             this.lblorders.Size = new System.Drawing.Size(54, 18);
             this.lblorders.TabIndex = 9;
@@ -137,18 +138,30 @@
             // 
             // btnloginlogout
             // 
-            this.btnloginlogout.Location = new System.Drawing.Point(767, 14);
+            this.btnloginlogout.Location = new System.Drawing.Point(735, 14);
             this.btnloginlogout.Name = "btnloginlogout";
             this.btnloginlogout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnloginlogout.Size = new System.Drawing.Size(59, 23);
+            this.btnloginlogout.Size = new System.Drawing.Size(112, 23);
             this.btnloginlogout.TabIndex = 11;
             this.btnloginlogout.UseVisualStyleBackColor = true;
             this.btnloginlogout.Click += new System.EventHandler(this.btnloginlogout_Click);
+            // 
+            // lblCartdisplay
+            // 
+            this.lblCartdisplay.AutoSize = true;
+            this.lblCartdisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCartdisplay.Location = new System.Drawing.Point(640, 15);
+            this.lblCartdisplay.Name = "lblCartdisplay";
+            this.lblCartdisplay.Size = new System.Drawing.Size(56, 18);
+            this.lblCartdisplay.TabIndex = 12;
+            this.lblCartdisplay.Text = "MyCart";
+            this.lblCartdisplay.Click += new System.EventHandler(this.lblCartdisplay_Click);
             // 
             // NavBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblCartdisplay);
             this.Controls.Add(this.btnloginlogout);
             this.Controls.Add(this.lblorders);
             this.Controls.Add(this.lblorderlist);
@@ -156,14 +169,14 @@
             this.Controls.Add(this.lblhome);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblcartitemcount);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.picboxcart);
             this.Controls.Add(this.lblloggedusername);
             this.Controls.Add(this.imguserimg);
             this.Name = "NavBar";
             this.Size = new System.Drawing.Size(1158, 46);
             this.Load += new System.EventHandler(this.NavBar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxcart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imguserimg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,7 +187,7 @@
 
         private System.Windows.Forms.PictureBox imguserimg;
         private System.Windows.Forms.Label lblloggedusername;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox picboxcart;
         private System.Windows.Forms.Label lblcartitemcount;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblhome;
@@ -182,5 +195,6 @@
         private System.Windows.Forms.Label lblorderlist;
         private System.Windows.Forms.Label lblorders;
         private System.Windows.Forms.Button btnloginlogout;
+        private System.Windows.Forms.Label lblCartdisplay;
     }
 }
