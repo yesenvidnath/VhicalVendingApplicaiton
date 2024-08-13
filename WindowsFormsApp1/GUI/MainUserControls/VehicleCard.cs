@@ -24,19 +24,41 @@ namespace WindowsFormsApp1.MainUserControls
 
         public int CarID { get; set; }  // Property to hold the CarID
         public int? PartId { get; set; } // Property to hold the PartID (nullable)
+        public decimal Price { get; set; } // Add this to store the price of the vehicle
+
 
         public VehicleCard()
         {
             InitializeComponent();
             btnseemore.Click += Btnseemore_Click;
             btnaddlist.Click += Btnaddlist_Click;
+            btnorder.Click -= btnorder_Click; // Remove any previous attachments
+            btnorder.Click += btnorder_Click;  // Attach the event handler
 
             // Get the logged in customer ID 
             cart = new Cart();
             customerId = SessionManager.LoggedInUserId;
         }
 
+        public void SetCarInfo(string carName, string brand, int year, decimal price, string imagePath)
+        {
+            lblcarname.Text = carName;
+            lblbrand.Text = brand;
+            lblyear.Text = year.ToString();
+            lblprice.Text = $"${price}";
+            imgbox.ImageLocation = imagePath;
+            this.Price = price;
+        }
 
+        public void SetCarInfoByID(int carID, string model, string brand, int year, decimal price, string imagePath)
+        {
+            CarID = carID;
+            lblcarname.Text = model;
+            lblbrand.Text = brand;
+            lblyear.Text = year.ToString();
+            lblprice.Text = $"${price}";
+            imgbox.ImageLocation = imagePath;
+        }
 
         // Set the "See More" button event once it's clicked
         private void Btnseemore_Click(object sender, EventArgs e)
@@ -62,7 +84,6 @@ namespace WindowsFormsApp1.MainUserControls
                 MessageBox.Show("Car details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         // Event handler for adding the item to the cart
         private void Btnaddlist_Click(object sender, EventArgs e)
@@ -96,24 +117,49 @@ namespace WindowsFormsApp1.MainUserControls
             }
         }
 
-
-        public void SetCarInfo(string carName, string brand, int year, decimal price, string imagePath)
+        private void btnorder_Click(object sender, EventArgs e)
         {
-            lblcarname.Text = carName;
-            lblbrand.Text = brand;
-            lblyear.Text = year.ToString();
-            lblprice.Text = $"${price}";
-            imgbox.ImageLocation = imagePath;
+            DialogResult result = MessageBox.Show("Are you sure you want to order this vehicle?", "Confirm Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                int userId = SessionManager.LoggedInUserId;
+                int customerId = new Customers().GetCustomerIdByUserId(userId);
+
+                if (customerId > 0)
+                {
+                    Orders orders = new Orders();
+                    List<OrderDetail> orderDetails = new List<OrderDetail>
+                    {
+                        new OrderDetail
+                        {
+                            CarID = this.CarID,  // Assuming CarID is set for the vehicle
+                            Quantity = 1, // Default quantity to 1 or allow the user to choose
+                            Price = this.Price // Use the Price property
+                        }
+                    };
+
+                    int orderId = orders.InsertOrder(customerId, orderDetails);
+
+                    if (orderId > 0)
+                    {
+                        MessageBox.Show("Your order has been placed successfully!", "Order Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while placing your order. Please try again.", "Order Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must be logged in to place an order.", "Login Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
-        public void SetCarInfoByID(int carID, string model, string brand, int year, decimal price, string imagePath)
+        private void imgbox_Click_1(object sender, EventArgs e)
         {
-            CarID = carID;
-            lblcarname.Text = model;
-            lblbrand.Text = brand;
-            lblyear.Text = year.ToString();
-            lblprice.Text = $"${price}";
-            imgbox.ImageLocation = imagePath;
+
         }
         private void VehicleCard_Load(object sender, EventArgs e)
         {
@@ -125,17 +171,9 @@ namespace WindowsFormsApp1.MainUserControls
         }
         private void btnaddlist_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void btnseemore_Click(object sender, EventArgs e)
-        {
-            
-        }
-        private void btnorder_Click(object sender, EventArgs e)
-        {
-            
-        }
-        private void imgbox_Click_1(object sender, EventArgs e)
         {
 
         }

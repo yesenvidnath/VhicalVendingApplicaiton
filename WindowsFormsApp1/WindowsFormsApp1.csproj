@@ -117,11 +117,11 @@
     <Compile Include="GUI\Customer\OrderList.Designer.cs">
       <DependentUpon>OrderList.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Customer\Orders.cs">
+    <Compile Include="GUI\Customer\Customer_Orders.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Customer\Orders.Designer.cs">
-      <DependentUpon>Orders.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Customer_Orders.Designer.cs">
+      <DependentUpon>Customer_Orders.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Customer\Profile.cs">
       <SubType>Form</SubType>
@@ -135,6 +135,12 @@
     </Compile>
     <Compile Include="GUI\MainUserControls\CartItems.Designer.cs">
       <DependentUpon>CartItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainUserControls\OrdersCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\MainUserControls\OrdersCard.Designer.cs">
+      <DependentUpon>OrdersCard.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainUserControls\PartsCard.cs">
       <SubType>UserControl</SubType>
@@ -218,11 +224,17 @@
     <EmbeddedResource Include="GUI\CustomerCart.resx">
       <DependentUpon>CustomerCart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Customer\Customer_Orders.resx">
+      <DependentUpon>Customer_Orders.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Customer\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainUserControls\CartItems.resx">
       <DependentUpon>CartItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainUserControls\OrdersCard.resx">
+      <DependentUpon>OrdersCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainUserControls\PartsCard.resx">
       <DependentUpon>PartsCard.cs</DependentUpon>

@@ -136,7 +136,6 @@ namespace WindowsFormsApp1.Funtions
         }
 
         //Get cart items in to the list 
-
         public List<CartItem> GetCartItems(int userId)
         {
             List<CartItem> cartItems = new List<CartItem>();
@@ -147,7 +146,8 @@ namespace WindowsFormsApp1.Funtions
             string query = @"SELECT ci.CartItemID, ci.Quantity, ci.AddedOn, 
                             ISNULL(c.Model, p.PartName) AS ItemName, 
                             ISNULL(c.Price, p.Price) AS Price, 
-                            ISNULL(c.Image, p.Image) AS Image
+                            ISNULL(c.Image, p.Image) AS Image, 
+                            ci.CarID, ci.PartID
                      FROM CartItems ci
                      LEFT JOIN Cars c ON ci.CarID = c.CarID
                      LEFT JOIN CarParts p ON ci.PartID = p.PartID
@@ -167,7 +167,9 @@ namespace WindowsFormsApp1.Funtions
                         ItemName = reader.GetString(reader.GetOrdinal("ItemName")),
                         Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                         Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
-                        ImagePath = reader.GetString(reader.GetOrdinal("Image"))
+                        ImagePath = reader.GetString(reader.GetOrdinal("Image")),
+                        CarID = reader.IsDBNull(reader.GetOrdinal("CarID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("CarID")),
+                        PartID = reader.IsDBNull(reader.GetOrdinal("PartID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("PartID"))
                     };
                     cartItems.Add(cartItem);
                 }
@@ -176,6 +178,7 @@ namespace WindowsFormsApp1.Funtions
 
             return cartItems;
         }
+
 
 
         public void RemoveFromCart(int cartItemId)
@@ -189,7 +192,17 @@ namespace WindowsFormsApp1.Funtions
             dbconnect.CloseConnection();
         }
 
+        //Clear cart methode 
+        public void ClearCart(int customerId)
+        {
+            string deleteQuery = "DELETE FROM CartItems WHERE CustomerID = @CustomerID";
+            SqlCommand deleteCommand = new SqlCommand(deleteQuery, dbconnect.GetConnection());
+            deleteCommand.Parameters.AddWithValue("@CustomerID", customerId);
 
+            dbconnect.OpenConnection();
+            deleteCommand.ExecuteNonQuery();
+            dbconnect.CloseConnection();
+        }
     }
 
     public class CartItem
@@ -199,5 +212,7 @@ namespace WindowsFormsApp1.Funtions
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public string ImagePath { get; set; }
+        public int? CarID { get; set; } // Nullable int for CarID
+        public int? PartID { get; set; } // Nullable int for PartID
     }
 }

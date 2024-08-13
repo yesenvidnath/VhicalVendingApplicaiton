@@ -4,6 +4,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static WindowsFormsApp1.MainUserControls.NavBar;
+using System.Windows.Forms;
+using WindowsFormsApp1.GUI.MainUserControls;
 
 namespace WindowsFormsApp1.Funtions.Customer
 {
@@ -250,6 +253,47 @@ namespace WindowsFormsApp1.Funtions.Customer
 
             return totalAmount;
         }
+
+        //method to get all orders for a specific customer
+        public List<Order> GetOrdersByCustomerId(int customerId)
+        {
+            List<Order> orders = new List<Order>();
+            string query = "SELECT OrderID, CustomerID, OrderDate, TotalAmount, Status FROM Orders WHERE CustomerID = @CustomerID";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+                cmd.Parameters.AddWithValue("@CustomerID", customerId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Order order = new Order
+                        {
+                            OrderID = reader.GetInt32(reader.GetOrdinal("OrderID")),
+                            CustomerID = reader.GetInt32(reader.GetOrdinal("CustomerID")),
+                            OrderDate = reader.GetDateTime(reader.GetOrdinal("OrderDate")),
+                            TotalAmount = reader.GetDecimal(reader.GetOrdinal("TotalAmount")),
+                            Status = reader.GetString(reader.GetOrdinal("Status"))
+                        };
+                        orders.Add(order);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving orders: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return orders;
+        }
+
     }
 
     // Order class to hold the order data

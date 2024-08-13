@@ -55,6 +55,7 @@
             this.btnorder.TabIndex = 15;
             this.btnorder.Text = "Order Now";
             this.btnorder.UseVisualStyleBackColor = true;
+            this.btnorder.Click += new System.EventHandler(this.btnorder_Click_1);
             // 
             // btnseemore
             // 
