@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -246,7 +246,7 @@
             this.groupBox2.Size = new System.Drawing.Size(722, 473);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "My Instings";
+            this.groupBox2.Text = "My Instincts";
             // 
             // btnproceedtocheckout
             // 
@@ -303,16 +303,16 @@
             // 
             // charTotOrders
             // 
-            chartArea2.Name = "ChartArea1";
-            this.charTotOrders.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.charTotOrders.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.charTotOrders.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.charTotOrders.Legends.Add(legend3);
             this.charTotOrders.Location = new System.Drawing.Point(19, 34);
             this.charTotOrders.Name = "charTotOrders";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.charTotOrders.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.charTotOrders.Series.Add(series3);
             this.charTotOrders.Size = new System.Drawing.Size(349, 195);
             this.charTotOrders.TabIndex = 0;
             this.charTotOrders.Text = "Totoal orders";
