@@ -30,7 +30,7 @@ namespace WindowsFormsApp1.MainUserControls
             // Create click events for labels
             lblhome.Click += lblhome_Click;
             lblsettings.Click += lblsettings_Click;
-            lblorderlist.Click += lblorderlist_Click;
+            //lblorderlist.Click += lblorderlist_Click;
             lblorders.Click += lblorders_Click;
             lblloggedusername.Click += lblloggedusername_Click;
             picboxcart.Click += Picboxcart_Click;
@@ -51,12 +51,12 @@ namespace WindowsFormsApp1.MainUserControls
             this.ParentForm.Hide();
         }
 
-        private void lblorderlist_Click(object sender, EventArgs e)
+        /*private void lblorderlist_Click(object sender, EventArgs e)
         {
             Customer.OrderList orderlist = new Customer.OrderList();
             orderlist.Show();
             this.ParentForm.Hide();
-        }
+        }*/
 
         private void lblorders_Click(object sender, EventArgs e)
         {

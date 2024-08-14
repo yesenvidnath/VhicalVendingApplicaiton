@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -105,11 +106,11 @@
     <Compile Include="GUI\CustomerCart.Designer.cs">
       <DependentUpon>CustomerCart.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Customer\Dashboard.cs">
+    <Compile Include="GUI\Customer\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Customer\Dashboard.Designer.cs">
-      <DependentUpon>Dashboard.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Profile.Designer.cs">
+      <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Customer\OrderList.cs">
       <SubType>Form</SubType>
@@ -122,12 +123,6 @@
     </Compile>
     <Compile Include="GUI\Customer\Customer_Orders.Designer.cs">
       <DependentUpon>Customer_Orders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Customer\Profile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Customer\Profile.Designer.cs">
-      <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="Funtions\HomeFuntions.cs" />
     <Compile Include="GUI\MainUserControls\CartItems.cs">
@@ -224,11 +219,11 @@
     <EmbeddedResource Include="GUI\CustomerCart.resx">
       <DependentUpon>CustomerCart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Customer\Customer_Orders.resx">
-      <DependentUpon>Customer_Orders.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Customer\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Customer\Customer_Orders.resx">
+      <DependentUpon>Customer_Orders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainUserControls\CartItems.resx">
       <DependentUpon>CartItems.cs</DependentUpon>

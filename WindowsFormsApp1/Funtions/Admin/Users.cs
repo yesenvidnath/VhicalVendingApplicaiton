@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -87,13 +88,30 @@ namespace WindowsFormsApp1.Funtions
 
                 if (role == "Customer")
                 {
-                    string updateCustomerQuery = "IF EXISTS (SELECT 1 FROM Customers WHERE CustomerID = @CustomerID) " +
-                                                 "UPDATE Customers SET UserID = @UserID WHERE CustomerID = @CustomerID " +
-                                                 "ELSE INSERT INTO Customers (CustomerID, UserID) VALUES (@CustomerID, @UserID)";
-                    SqlCommand customerCmd = new SqlCommand(updateCustomerQuery, dbconnect.GetConnection());
-                    customerCmd.Parameters.AddWithValue("@CustomerID", userId);
-                    customerCmd.Parameters.AddWithValue("@UserID", userId);
-                    customerCmd.ExecuteNonQuery();
+                    // Check if the customer already exists
+                    string checkCustomerQuery = "SELECT COUNT(*) FROM Customers WHERE CustomerID = @CustomerID";
+                    SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, dbconnect.GetConnection());
+                    checkCmd.Parameters.AddWithValue("@CustomerID", userId);
+
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        // Customer exists, update the UserID
+                        string updateCustomerQuery = "UPDATE Customers SET UserID = @UserID WHERE CustomerID = @CustomerID";
+                        SqlCommand customerCmd = new SqlCommand(updateCustomerQuery, dbconnect.GetConnection());
+                        customerCmd.Parameters.AddWithValue("@CustomerID", userId);
+                        customerCmd.Parameters.AddWithValue("@UserID", userId);
+                        customerCmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        // Customer does not exist, insert new record
+                        string insertCustomerQuery = "INSERT INTO Customers (UserID) VALUES (@UserID)";
+                        SqlCommand insertCmd = new SqlCommand(insertCustomerQuery, dbconnect.GetConnection());
+                        insertCmd.Parameters.AddWithValue("@UserID", userId);
+                        insertCmd.ExecuteNonQuery();
+                    }
                 }
 
                 return true;
@@ -172,5 +190,56 @@ namespace WindowsFormsApp1.Funtions
             }
         }
 
+        // GetUserInfoById Method
+        public User GetUserInfoById(int userId)
+        {
+            User user = null;
+            string query = "SELECT UserID, FirstName, LastName, Email, Phone, Username, Password FROM Users WHERE UserID = @UserID";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+                cmd.Parameters.AddWithValue("@UserID", userId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new User
+                        {
+                            UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                            Username = reader.GetString(reader.GetOrdinal("Username")),
+                            Password = reader.GetString(reader.GetOrdinal("Password")) // Again, consider how you handle passwords
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving user information: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return user;
+        }
+    }
+
+    public class User
+    {
+        public int UserID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

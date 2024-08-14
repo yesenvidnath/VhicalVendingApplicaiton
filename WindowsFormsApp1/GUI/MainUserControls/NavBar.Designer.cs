@@ -36,7 +36,6 @@
             this.imguserimg = new System.Windows.Forms.PictureBox();
             this.lblhome = new System.Windows.Forms.Label();
             this.lblsettings = new System.Windows.Forms.Label();
-            this.lblorderlist = new System.Windows.Forms.Label();
             this.lblorders = new System.Windows.Forms.Label();
             this.btnloginlogout = new System.Windows.Forms.Button();
             this.lblCartdisplay = new System.Windows.Forms.Label();
@@ -100,7 +99,7 @@
             // 
             this.lblhome.AutoSize = true;
             this.lblhome.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblhome.Location = new System.Drawing.Point(209, 15);
+            this.lblhome.Location = new System.Drawing.Point(310, 15);
             this.lblhome.Name = "lblhome";
             this.lblhome.Size = new System.Drawing.Size(49, 18);
             this.lblhome.TabIndex = 6;
@@ -110,27 +109,17 @@
             // 
             this.lblsettings.AutoSize = true;
             this.lblsettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblsettings.Location = new System.Drawing.Point(319, 15);
+            this.lblsettings.Location = new System.Drawing.Point(420, 15);
             this.lblsettings.Name = "lblsettings";
             this.lblsettings.Size = new System.Drawing.Size(61, 18);
             this.lblsettings.TabIndex = 7;
             this.lblsettings.Text = "Settings";
             // 
-            // lblorderlist
-            // 
-            this.lblorderlist.AutoSize = true;
-            this.lblorderlist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblorderlist.Location = new System.Drawing.Point(429, 15);
-            this.lblorderlist.Name = "lblorderlist";
-            this.lblorderlist.Size = new System.Drawing.Size(73, 18);
-            this.lblorderlist.TabIndex = 8;
-            this.lblorderlist.Text = "Order List";
-            // 
             // lblorders
             // 
             this.lblorders.AutoSize = true;
             this.lblorders.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblorders.Location = new System.Drawing.Point(557, 15);
+            this.lblorders.Location = new System.Drawing.Point(516, 15);
             this.lblorders.Name = "lblorders";
             this.lblorders.Size = new System.Drawing.Size(54, 18);
             this.lblorders.TabIndex = 9;
@@ -150,7 +139,7 @@
             // 
             this.lblCartdisplay.AutoSize = true;
             this.lblCartdisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCartdisplay.Location = new System.Drawing.Point(640, 15);
+            this.lblCartdisplay.Location = new System.Drawing.Point(608, 15);
             this.lblCartdisplay.Name = "lblCartdisplay";
             this.lblCartdisplay.Size = new System.Drawing.Size(56, 18);
             this.lblCartdisplay.TabIndex = 12;
@@ -164,7 +153,6 @@
             this.Controls.Add(this.lblCartdisplay);
             this.Controls.Add(this.btnloginlogout);
             this.Controls.Add(this.lblorders);
-            this.Controls.Add(this.lblorderlist);
             this.Controls.Add(this.lblsettings);
             this.Controls.Add(this.lblhome);
             this.Controls.Add(this.pictureBox1);
@@ -192,7 +180,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblhome;
         private System.Windows.Forms.Label lblsettings;
-        private System.Windows.Forms.Label lblorderlist;
         private System.Windows.Forms.Label lblorders;
         private System.Windows.Forms.Button btnloginlogout;
         private System.Windows.Forms.Label lblCartdisplay;

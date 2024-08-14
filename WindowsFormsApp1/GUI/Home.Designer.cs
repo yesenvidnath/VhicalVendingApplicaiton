@@ -107,7 +107,7 @@
             this.Controls.Add(this.flpbrands);
             this.Controls.Add(this.flpproducts);
             this.Name = "Home";
-            this.Text = "Products";
+            this.Text = "A";
             this.Load += new System.EventHandler(this.Home_Load);
             this.ResumeLayout(false);
 
