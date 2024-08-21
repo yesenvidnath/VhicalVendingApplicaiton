@@ -257,5 +257,30 @@ namespace WindowsFormsApp1.Funtions.Customer
             return customerId;
         }
 
+        // Fetch Total Customers
+        public int GetTotalCustomers()
+        {
+            int totalCustomers = 0;
+
+            string query = "SELECT COUNT(*) FROM Customers";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+                totalCustomers = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving total customers: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return totalCustomers;
+        }
+
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApp1.GUI.Admin
+﻿namespace WindowsFormsApp1.Admin
 {
-    partial class ManageReports
+    partial class ManageProducts
     {
         /// <summary>
         /// Required designer variable.

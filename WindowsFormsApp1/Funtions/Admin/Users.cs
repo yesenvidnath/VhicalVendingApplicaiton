@@ -194,7 +194,7 @@ namespace WindowsFormsApp1.Funtions
         public User GetUserInfoById(int userId)
         {
             User user = null;
-            string query = "SELECT UserID, FirstName, LastName, Email, Phone, Username, Password FROM Users WHERE UserID = @UserID";
+            string query = "SELECT UserID, FirstName, LastName, Email, Phone, Username, Password, Role FROM Users WHERE UserID = @UserID";
 
             try
             {
@@ -214,7 +214,8 @@ namespace WindowsFormsApp1.Funtions
                             Email = reader.GetString(reader.GetOrdinal("Email")),
                             Phone = reader.GetString(reader.GetOrdinal("Phone")),
                             Username = reader.GetString(reader.GetOrdinal("Username")),
-                            Password = reader.GetString(reader.GetOrdinal("Password")) // Again, consider how you handle passwords
+                            Password = reader.GetString(reader.GetOrdinal("Password")), // Again, consider how you handle passwords
+                            Role = reader.GetString(reader.GetOrdinal("Role"))
                         };
                     }
                 }
@@ -241,5 +242,6 @@ namespace WindowsFormsApp1.Funtions
         public string Phone { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Role { get; set; }
     }
 }

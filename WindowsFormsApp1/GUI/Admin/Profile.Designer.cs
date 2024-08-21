@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPwd = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtUsername = new Guna.UI2.WinForms.Guna2TextBox();
@@ -60,33 +60,33 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lbluid = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.T = new System.Windows.Forms.Label();
-            this.charTotOrders = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lbltotcustomers = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lbltotalearnings = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lbltotparts = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.charTotearnings = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lbltotcars = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.charTotearnings = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label13 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lbltotparts = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lbltotalearnings = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbltotcustomers = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.T = new System.Windows.Forms.Label();
+            this.charTotOrders = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartotitemsbybrands = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.charTotOrders)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.charTotearnings)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.charTotOrders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartotitemsbybrands)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -370,8 +370,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chartotitemsbybrands);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.chart1);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.charTotearnings);
             this.groupBox2.Controls.Add(this.panel4);
@@ -387,114 +387,39 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "System Instincts";
             // 
-            // T
+            // label13
             // 
-            this.T.AutoSize = true;
-            this.T.Location = new System.Drawing.Point(152, 214);
-            this.T.Name = "T";
-            this.T.Size = new System.Drawing.Size(65, 13);
-            this.T.TabIndex = 3;
-            this.T.Text = "Total Orders";
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(505, 429);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(110, 13);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Total Items By Brands";
             // 
-            // charTotOrders
+            // label9
             // 
-            chartArea8.Name = "ChartArea1";
-            this.charTotOrders.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.charTotOrders.Legends.Add(legend8);
-            this.charTotOrders.Location = new System.Drawing.Point(13, 19);
-            this.charTotOrders.Name = "charTotOrders";
-            series8.ChartArea = "ChartArea1";
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.charTotOrders.Series.Add(series8);
-            this.charTotOrders.Size = new System.Drawing.Size(349, 189);
-            this.charTotOrders.TabIndex = 2;
-            this.charTotOrders.Text = "Totoal orders";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(152, 429);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 13);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Total Earnings";
             // 
-            // panel1
+            // charTotearnings
             // 
-            this.panel1.BackColor = System.Drawing.Color.SkyBlue;
-            this.panel1.Controls.Add(this.lbltotcustomers);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(379, 20);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(361, 58);
-            this.panel1.TabIndex = 4;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 9);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(83, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Total Customers";
-            // 
-            // lbltotcustomers
-            // 
-            this.lbltotcustomers.AutoSize = true;
-            this.lbltotcustomers.Location = new System.Drawing.Point(153, 23);
-            this.lbltotcustomers.Name = "lbltotcustomers";
-            this.lbltotcustomers.Size = new System.Drawing.Size(83, 13);
-            this.lbltotcustomers.TabIndex = 1;
-            this.lbltotcustomers.Text = "Total Customers";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.SkyBlue;
-            this.panel2.Controls.Add(this.lbltotalearnings);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Location = new System.Drawing.Point(379, 86);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(361, 58);
-            this.panel2.TabIndex = 5;
-            // 
-            // lbltotalearnings
-            // 
-            this.lbltotalearnings.AutoSize = true;
-            this.lbltotalearnings.Location = new System.Drawing.Point(153, 23);
-            this.lbltotalearnings.Name = "lbltotalearnings";
-            this.lbltotalearnings.Size = new System.Drawing.Size(83, 13);
-            this.lbltotalearnings.TabIndex = 1;
-            this.lbltotalearnings.Text = "Total Customers";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 9);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(75, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Total Earnings";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.SkyBlue;
-            this.panel3.Controls.Add(this.lbltotparts);
-            this.panel3.Controls.Add(this.label11);
-            this.panel3.Location = new System.Drawing.Point(379, 150);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(361, 58);
-            this.panel3.TabIndex = 6;
-            // 
-            // lbltotparts
-            // 
-            this.lbltotparts.AutoSize = true;
-            this.lbltotparts.Location = new System.Drawing.Point(153, 23);
-            this.lbltotparts.Name = "lbltotparts";
-            this.lbltotparts.Size = new System.Drawing.Size(83, 13);
-            this.lbltotparts.TabIndex = 1;
-            this.lbltotparts.Text = "Total Customers";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 9);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Total Parts";
+            chartArea4.Name = "ChartArea1";
+            this.charTotearnings.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.charTotearnings.Legends.Add(legend4);
+            this.charTotearnings.Location = new System.Drawing.Point(13, 237);
+            this.charTotearnings.Name = "charTotearnings";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.charTotearnings.Series.Add(series4);
+            this.charTotearnings.Size = new System.Drawing.Size(349, 189);
+            this.charTotearnings.TabIndex = 8;
+            this.charTotearnings.Text = "Totoal orders";
             // 
             // panel4
             // 
@@ -524,61 +449,136 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Total Cars";
             // 
-            // label9
+            // panel3
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(152, 429);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Total Earnings";
+            this.panel3.BackColor = System.Drawing.Color.SkyBlue;
+            this.panel3.Controls.Add(this.lbltotparts);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Location = new System.Drawing.Point(379, 150);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(361, 58);
+            this.panel3.TabIndex = 6;
             // 
-            // charTotearnings
+            // lbltotparts
             // 
-            chartArea9.Name = "ChartArea1";
-            this.charTotearnings.ChartAreas.Add(chartArea9);
-            legend9.Name = "Legend1";
-            this.charTotearnings.Legends.Add(legend9);
-            this.charTotearnings.Location = new System.Drawing.Point(13, 237);
-            this.charTotearnings.Name = "charTotearnings";
-            series9.ChartArea = "ChartArea1";
-            series9.Legend = "Legend1";
-            series9.Name = "Series1";
-            this.charTotearnings.Series.Add(series9);
-            this.charTotearnings.Size = new System.Drawing.Size(349, 189);
-            this.charTotearnings.TabIndex = 8;
-            this.charTotearnings.Text = "Totoal orders";
+            this.lbltotparts.AutoSize = true;
+            this.lbltotparts.Location = new System.Drawing.Point(153, 23);
+            this.lbltotparts.Name = "lbltotparts";
+            this.lbltotparts.Size = new System.Drawing.Size(83, 13);
+            this.lbltotparts.TabIndex = 1;
+            this.lbltotparts.Text = "Total Customers";
             // 
-            // chart1
+            // label11
             // 
-            chartArea10.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea10);
-            legend10.Name = "Legend1";
-            this.chart1.Legends.Add(legend10);
-            this.chart1.Location = new System.Drawing.Point(379, 278);
-            this.chart1.Name = "chart1";
-            series10.ChartArea = "ChartArea1";
-            series10.Legend = "Legend1";
-            series10.Name = "Series1";
-            this.chart1.Series.Add(series10);
-            this.chart1.Size = new System.Drawing.Size(361, 148);
-            this.chart1.TabIndex = 10;
-            this.chart1.Text = "Totoal orders";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 9);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Total Parts";
             // 
-            // label13
+            // panel2
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(505, 429);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(110, 13);
-            this.label13.TabIndex = 11;
-            this.label13.Text = "Total Items By Brands";
+            this.panel2.BackColor = System.Drawing.Color.SkyBlue;
+            this.panel2.Controls.Add(this.lbltotalearnings);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Location = new System.Drawing.Point(379, 86);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(361, 58);
+            this.panel2.TabIndex = 5;
+            // 
+            // lbltotalearnings
+            // 
+            this.lbltotalearnings.AutoSize = true;
+            this.lbltotalearnings.Location = new System.Drawing.Point(153, 23);
+            this.lbltotalearnings.Name = "lbltotalearnings";
+            this.lbltotalearnings.Size = new System.Drawing.Size(83, 13);
+            this.lbltotalearnings.TabIndex = 1;
+            this.lbltotalearnings.Text = "Total Customers";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 9);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(75, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Total Earnings";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.SkyBlue;
+            this.panel1.Controls.Add(this.lbltotcustomers);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Location = new System.Drawing.Point(379, 21);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(361, 58);
+            this.panel1.TabIndex = 4;
+            // 
+            // lbltotcustomers
+            // 
+            this.lbltotcustomers.AutoSize = true;
+            this.lbltotcustomers.Location = new System.Drawing.Point(153, 23);
+            this.lbltotcustomers.Name = "lbltotcustomers";
+            this.lbltotcustomers.Size = new System.Drawing.Size(83, 13);
+            this.lbltotcustomers.TabIndex = 1;
+            this.lbltotcustomers.Text = "Total Customers";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Total Customers";
+            // 
+            // T
+            // 
+            this.T.AutoSize = true;
+            this.T.Location = new System.Drawing.Point(152, 214);
+            this.T.Name = "T";
+            this.T.Size = new System.Drawing.Size(65, 13);
+            this.T.TabIndex = 3;
+            this.T.Text = "Total Orders";
+            // 
+            // charTotOrders
+            // 
+            chartArea5.Name = "ChartArea1";
+            this.charTotOrders.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.charTotOrders.Legends.Add(legend5);
+            this.charTotOrders.Location = new System.Drawing.Point(13, 20);
+            this.charTotOrders.Name = "charTotOrders";
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.charTotOrders.Series.Add(series5);
+            this.charTotOrders.Size = new System.Drawing.Size(349, 189);
+            this.charTotOrders.TabIndex = 2;
+            this.charTotOrders.Text = "Totoal orders";
+            // 
+            // chartotitemsbybrands
+            // 
+            chartArea6.Name = "ChartArea1";
+            this.chartotitemsbybrands.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chartotitemsbybrands.Legends.Add(legend6);
+            this.chartotitemsbybrands.Location = new System.Drawing.Point(379, 278);
+            this.chartotitemsbybrands.Name = "chartotitemsbybrands";
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chartotitemsbybrands.Series.Add(series6);
+            this.chartotitemsbybrands.Size = new System.Drawing.Size(361, 148);
+            this.chartotitemsbybrands.TabIndex = 12;
+            this.chartotitemsbybrands.Text = "chart1";
             // 
             // Profile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1054, 590);
+            this.ClientSize = new System.Drawing.Size(1054, 554);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Profile";
@@ -587,17 +587,17 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.charTotOrders)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.charTotearnings)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.charTotearnings)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.charTotOrders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartotitemsbybrands)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -644,6 +644,6 @@
         private System.Windows.Forms.Label lbltotcars;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartotitemsbybrands;
     }
 }

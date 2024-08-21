@@ -294,6 +294,229 @@ namespace WindowsFormsApp1.Funtions.Customer
             return orders;
         }
 
+
+        // Method to get total amounts of parts and vehicles over time ( this methode supports for the admin panel charts of OrderSummaryChart )
+        public List<OrderSummary> GetOrderSummaryByDate()
+        {
+            List<OrderSummary> orderSummaries = new List<OrderSummary>();
+            string query = @"
+            SELECT 
+                OrderDate,
+                SUM(CASE WHEN PartID IS NOT NULL THEN Quantity * Price ELSE 0 END) AS TotalPartsAmount,
+                SUM(CASE WHEN CarID IS NOT NULL THEN Quantity * Price ELSE 0 END) AS TotalVehiclesAmount
+            FROM 
+                OrderDetails
+            INNER JOIN 
+                Orders ON OrderDetails.OrderID = Orders.OrderID
+            GROUP BY 
+                OrderDate
+            ORDER BY 
+                OrderDate";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OrderSummary summary = new OrderSummary
+                        {
+                            OrderDate = reader.GetDateTime(reader.GetOrdinal("OrderDate")),
+                            TotalPartsAmount = reader.GetDecimal(reader.GetOrdinal("TotalPartsAmount")),
+                            TotalVehiclesAmount = reader.GetDecimal(reader.GetOrdinal("TotalVehiclesAmount"))
+                        };
+                        orderSummaries.Add(summary);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving order summaries: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return orderSummaries;
+        }
+
+        // Method to get total amounts of parts and vehicles over time ( this methode supports for the admin panel charts : Profile )
+        public List<OrderSummary> GetEarningsByDate()
+        {
+            List<OrderSummary> earningsSummaries = new List<OrderSummary>();
+            string query = @"
+            SELECT 
+                OrderDate,
+                SUM(CASE WHEN PartID IS NOT NULL THEN Quantity * Price ELSE 0 END) AS TotalPartsEarnings,
+                SUM(CASE WHEN CarID IS NOT NULL THEN Quantity * Price ELSE 0 END) AS TotalVehiclesEarnings
+            FROM 
+                OrderDetails
+            INNER JOIN 
+                Orders ON OrderDetails.OrderID = Orders.OrderID
+            GROUP BY 
+                OrderDate
+            ORDER BY 
+                OrderDate";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OrderSummary summary = new OrderSummary
+                        {
+                            OrderDate = reader.GetDateTime(reader.GetOrdinal("OrderDate")),
+                            TotalPartsAmount = reader.GetDecimal(reader.GetOrdinal("TotalPartsEarnings")),
+                            TotalVehiclesAmount = reader.GetDecimal(reader.GetOrdinal("TotalVehiclesEarnings"))
+                        };
+                        earningsSummaries.Add(summary);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving earnings summaries: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return earningsSummaries;
+        }
+
+
+        // Method to get total items by brand and product type
+        public List<ItemSummaryByBrand> GetTotalItemsByBrand()
+        {
+            List<ItemSummaryByBrand> itemSummaries = new List<ItemSummaryByBrand>();
+
+            string partsQuery = @"
+        SELECT 
+            b.BrandName,
+            SUM(od.Quantity) AS TotalParts
+        FROM 
+            OrderDetails od
+        INNER JOIN 
+            CarParts cp ON od.PartID = cp.PartID
+        INNER JOIN 
+            Brands b ON cp.BrandID = b.BrandID
+        GROUP BY 
+            b.BrandName";
+
+            string vehiclesQuery = @"
+        SELECT 
+            b.BrandName,
+            SUM(od.Quantity) AS TotalVehicles
+        FROM 
+            OrderDetails od
+        INNER JOIN 
+            Cars c ON od.CarID = c.CarID
+        INNER JOIN 
+            Brands b ON c.BrandID = b.BrandID
+        GROUP BY 
+            b.BrandName";
+
+            try
+            {
+                dbconnect.OpenConnection();
+
+                // Get parts summary
+                SqlCommand cmdParts = new SqlCommand(partsQuery, dbconnect.GetConnection());
+                using (SqlDataReader reader = cmdParts.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ItemSummaryByBrand summary = new ItemSummaryByBrand
+                        {
+                            BrandName = reader.GetString(reader.GetOrdinal("BrandName")),
+                            TotalParts = reader.GetInt32(reader.GetOrdinal("TotalParts")),
+                            TotalVehicles = 0 // Initialize to 0; will be updated later
+                        };
+                        itemSummaries.Add(summary);
+                    }
+                }
+
+                // Get vehicles summary
+                SqlCommand cmdVehicles = new SqlCommand(vehiclesQuery, dbconnect.GetConnection());
+                using (SqlDataReader reader = cmdVehicles.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string brandName = reader.GetString(reader.GetOrdinal("BrandName"));
+                        int totalVehicles = reader.GetInt32(reader.GetOrdinal("TotalVehicles"));
+
+                        // Find the matching brand and update the total vehicles
+                        var summary = itemSummaries.FirstOrDefault(s => s.BrandName == brandName);
+                        if (summary != null)
+                        {
+                            summary.TotalVehicles = totalVehicles;
+                        }
+                        else
+                        {
+                            // If the brand wasn't found in parts, add a new entry
+                            itemSummaries.Add(new ItemSummaryByBrand
+                            {
+                                BrandName = brandName,
+                                TotalParts = 0,
+                                TotalVehicles = totalVehicles
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving item summaries by brand: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return itemSummaries;
+        }
+
+        //Fetch Total Earnings
+        public decimal GetTotalEarnings()
+        {
+            decimal totalEarnings = 0;
+
+            string query = "SELECT SUM(TotalAmount) FROM Orders WHERE Status = 'Completed'";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+                totalEarnings = Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving total earnings: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return totalEarnings;
+        }
+    }
+
+    // Get item summery by brand helper class 
+    public class ItemSummaryByBrand
+    {
+        public string BrandName { get; set; }
+        public int TotalParts { get; set; }
+        public int TotalVehicles { get; set; }
     }
 
     // Order class to hold the order data
@@ -315,5 +538,13 @@ namespace WindowsFormsApp1.Funtions.Customer
         public int? PartID { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+    }
+
+    // create the helper class for the application
+    public class OrderSummary
+    {
+        public DateTime OrderDate { get; set; }
+        public decimal TotalPartsAmount { get; set; }
+        public decimal TotalVehiclesAmount { get; set; }
     }
 }

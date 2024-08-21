@@ -13,11 +13,10 @@ namespace WindowsFormsApp1.Funtions
         private dbconnect dbconnect;
 
 
-        private CarParts()
+        public CarParts()
         {
             dbconnect = new dbconnect();
         }
-
 
         // Insert a new Car Part
         public bool InsertCarPart(string brandName, string carModel, string carMake, int carYear, string partName, string description, decimal price, int quantityAvailable, string image)
@@ -205,6 +204,32 @@ namespace WindowsFormsApp1.Funtions
 
             return carParts;
         }
+
+        // Fetch Total Parts
+        public int GetTotalParts()
+        {
+            int totalParts = 0;
+
+            string query = "SELECT COUNT(*) FROM CarParts";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+                totalParts = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving total parts: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return totalParts;
+        }
+
     }
 
     // CarPart class to hold the data

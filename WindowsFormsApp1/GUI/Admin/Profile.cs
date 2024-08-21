@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static WindowsFormsApp1.MainUserControls.NavBar;
 using WindowsFormsApp1.Funtions.Customer;
 using WindowsFormsApp1.Funtions;
+using WindowsFormsApp1.Funtions.Admin;
 using WindowsFormsApp1.GUI.MainUserControls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 using System.Data.SqlClient;
@@ -21,8 +22,6 @@ namespace WindowsFormsApp1.Admin
     {
 
         private int userId;
-        private int customerId;
-        private Cart cart;
 
         public int CarID { get; set; }  // Property to hold the CarID
         public int? PartId { get; set; } // Property to hold the PartID (nullable)
@@ -31,8 +30,11 @@ namespace WindowsFormsApp1.Admin
         public Profile()
         {
             InitializeComponent();
-
             LoadUserInfo();
+            LoadOrderSummaryChart();
+            LoadEarningsChart();
+            LoadItemsByBrandChart();
+            LoadDashboardData();
 
             // Hide text boxes initially
             txtFname.Visible = false;
@@ -44,21 +46,11 @@ namespace WindowsFormsApp1.Admin
 
             // Get the logged in user ID
             userId = SessionManager.LoggedInUserId;
+            string userRole = SessionManager.UserRole;
 
-            if (userId > 0)
-            {
-                // Get the customer ID based on the logged-in user ID
-                Customers customers = new Customers();
-                customerId = customers.GetCustomerIdByUserId(userId);
-            }
-
-            // Initialize Cart
-            cart = new Cart();
-
-            // Load the Nav Bar
-            NavBar navBar = new NavBar();
-            navBar.Dock = DockStyle.Top;
-            this.Controls.Add(navBar);
+            AdminNavBar adminNavBar = new AdminNavBar();
+            adminNavBar.Dock = DockStyle.Top;
+            this.Controls.Add(adminNavBar);
         }
 
         // Load user information in to the labels 
@@ -88,13 +80,12 @@ namespace WindowsFormsApp1.Admin
             }
         }
 
-
-        /*
+        /*/
          * 
          * Edit now button implimentation 
          * Start 
          * 
-         */
+         /*/
 
         private bool isEditMode = false;
 
@@ -188,5 +179,241 @@ namespace WindowsFormsApp1.Admin
          * End
          * 
          */
+
+
+
+        /*
+         * Start the Chart 'charTotOrders' chart
+         * Start 
+         * 
+         */
+
+        private void LoadOrderSummaryChart()
+        {
+            Orders orders = new Orders();
+            List<OrderSummary> orderSummaries = orders.GetOrderSummaryByDate();
+
+            // Reset the appearance before adding data
+            ResetChartAppearance(charTotOrders);
+
+            // Clear any existing series in the chart
+            charTotOrders.Series.Clear();
+
+            // Create series for Parts and Vehicles
+            var seriesParts = new System.Windows.Forms.DataVisualization.Charting.Series("Parts")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line,
+                XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime,
+                Color = System.Drawing.Color.MediumSeaGreen, // Custom color for Parts line
+                BorderWidth = 3 // Make the line thicker for better visibility
+            };
+
+            var seriesVehicles = new System.Windows.Forms.DataVisualization.Charting.Series("Vehicles")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line,
+                XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime,
+                Color = System.Drawing.Color.CornflowerBlue, // Custom color for Vehicles line
+                BorderWidth = 3 // Make the line thicker for better visibility
+            };
+
+            // Add data points to the series
+            foreach (var summary in orderSummaries)
+            {
+                seriesParts.Points.AddXY(summary.OrderDate, summary.TotalPartsAmount);
+                seriesVehicles.Points.AddXY(summary.OrderDate, summary.TotalVehiclesAmount);
+            }
+
+            // Add series to the chart
+            charTotOrders.Series.Add(seriesParts);
+            charTotOrders.Series.Add(seriesVehicles);
+
+            // Set chart titles and axis labels if needed
+            charTotOrders.Titles.Clear();
+            charTotOrders.Titles.Add("Total Orders Over Time");
+            charTotOrders.ChartAreas[0].AxisX.Title = "Order Date";
+            charTotOrders.ChartAreas[0].AxisY.Title = "Total Amount";
+        }
+
+
+        /*
+         * Start the Chart 'charTotOrders' chart
+         * End 
+         * 
+         */
+
+
+        /*
+         * Start the Chart 'charTotearnings' chart
+         * Start
+         * 
+         */
+
+        private void LoadEarningsChart()
+        {
+            Orders orders = new Orders();
+            List<OrderSummary> earningsSummaries = orders.GetEarningsByDate();
+
+            // Reset the appearance before adding data
+            ResetChartAppearance(charTotearnings);
+
+            // Clear any existing series in the chart
+            charTotearnings.Series.Clear();
+
+            // Create series for Parts and Vehicles earnings
+            var seriesParts = new System.Windows.Forms.DataVisualization.Charting.Series("Parts Earnings")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area,
+                XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime,
+                Color = System.Drawing.Color.FromArgb(128, 60, 179, 113), // Custom semi-transparent color for Parts area
+                BorderColor = System.Drawing.Color.SeaGreen, // Border color for the area
+                BorderWidth = 2
+            };
+
+            var seriesVehicles = new System.Windows.Forms.DataVisualization.Charting.Series("Vehicles Earnings")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area,
+                XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime,
+                Color = System.Drawing.Color.FromArgb(128, 65, 105, 225), // Custom semi-transparent color for Vehicles area
+                BorderColor = System.Drawing.Color.RoyalBlue, // Border color for the area
+                BorderWidth = 2
+            };
+
+            // Add data points to the series
+            foreach (var summary in earningsSummaries)
+            {
+                seriesParts.Points.AddXY(summary.OrderDate, summary.TotalPartsAmount);
+                seriesVehicles.Points.AddXY(summary.OrderDate, summary.TotalVehiclesAmount);
+            }
+
+            // Add series to the chart
+            charTotearnings.Series.Add(seriesParts);
+            charTotearnings.Series.Add(seriesVehicles);
+
+            // Set chart titles and axis labels if needed
+            charTotearnings.Titles.Clear();
+            charTotearnings.Titles.Add("Total Earnings Over Time");
+            charTotearnings.ChartAreas[0].AxisX.Title = "Order Date";
+            charTotearnings.ChartAreas[0].AxisY.Title = "Total Earnings";
+        }
+
+        /*
+         * Start the Chart 'charTotearnings' chart
+         * End
+         * 
+         */
+
+
+        /*
+         * Start the Chart 'chartotitemsbybrands' chart
+         * Start
+         * 
+         */
+        private void LoadItemsByBrandChart()
+        {
+            Orders orders = new Orders();
+            List<ItemSummaryByBrand> itemSummaries = orders.GetTotalItemsByBrand();
+
+            // Clear any existing series in the chart
+            chartotitemsbybrands.Series.Clear();
+            chartotitemsbybrands.ChartAreas.Clear();
+            chartotitemsbybrands.ChartAreas.Add(new System.Windows.Forms.DataVisualization.Charting.ChartArea("MainArea"));
+
+            // Create series for Parts and Vehicles
+            var seriesParts = new System.Windows.Forms.DataVisualization.Charting.Series("Parts")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar,
+                Color = System.Drawing.Color.MediumSeaGreen
+            };
+
+            var seriesVehicles = new System.Windows.Forms.DataVisualization.Charting.Series("Vehicles")
+            {
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar,
+                Color = System.Drawing.Color.CornflowerBlue
+            };
+
+            // Add dynamic data points to the series
+            foreach (var summary in itemSummaries)
+            {
+                seriesParts.Points.AddXY(summary.BrandName, summary.TotalParts);
+                seriesVehicles.Points.AddXY(summary.BrandName, summary.TotalVehicles);
+            }
+
+            // Add series to the chart
+            chartotitemsbybrands.Series.Add(seriesParts);
+            chartotitemsbybrands.Series.Add(seriesVehicles);
+
+            // Set chart titles and axis labels
+            chartotitemsbybrands.Titles.Clear();
+            chartotitemsbybrands.Titles.Add("Total Items by Brand");
+            chartotitemsbybrands.ChartAreas[0].AxisX.Title = "Brand";
+            chartotitemsbybrands.ChartAreas[0].AxisY.Title = "Total Items";
+        }
+
+
+        /*
+         * Start the Chart 'chartotitemsbybrands' chart
+         * End
+         * 
+         */
+
+
+        /* 
+         * reset some of the properties of the ChartArea 
+         * 
+         */
+        private void ResetChartAppearance(System.Windows.Forms.DataVisualization.Charting.Chart chart)
+        {
+            var chartArea = chart.ChartAreas[0];
+
+            // Reset chart area background
+            chartArea.BackColor = System.Drawing.Color.White;
+
+            // Reset X and Y axis lines and grids
+            chartArea.AxisX.LineColor = System.Drawing.Color.Black;
+            chartArea.AxisY.LineColor = System.Drawing.Color.Black;
+            chartArea.AxisX.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea.AxisY.MajorGrid.LineColor = System.Drawing.Color.LightGray;
+
+            // Reset the area of the chart
+            chart.BackColor = System.Drawing.Color.White;
+            chartArea.BackSecondaryColor = System.Drawing.Color.White;
+            chartArea.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.None;
+        }
+
+        /*
+         * Display Data in Labels
+         * Start
+         *
+         */
+
+        private void LoadDashboardData()
+        {
+            // Get the total customers
+            Customers customers = new Customers();
+            int totalCustomers = customers.GetTotalCustomers();
+            lbltotcustomers.Text = totalCustomers.ToString();
+
+            // Get the total earnings
+            Orders orders = new Orders();
+            decimal totalEarnings = orders.GetTotalEarnings();
+            lbltotalearnings.Text = $"${totalEarnings:F2}";
+
+            // Get the total parts
+            CarParts carParts = new CarParts();
+            int totalParts = carParts.GetTotalParts();
+            lbltotparts.Text = totalParts.ToString();
+
+            WindowsFormsApp1.Funtions.Cars cars = new WindowsFormsApp1.Funtions.Cars();
+            int totalCars = cars.GetTotalCars();
+            lbltotcars.Text = totalCars.ToString();
+        }
+
+        /*
+         * Display Data in Labels
+         * Start
+         *
+         */
+
+
     }
 }

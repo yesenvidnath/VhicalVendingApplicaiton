@@ -18,7 +18,6 @@ namespace WindowsFormsApp1.Funtions
             dbconnect = new dbconnect();
         }
 
-
         // Create Plublic class for getting car details
         public class CarDetails
         {
@@ -223,6 +222,31 @@ namespace WindowsFormsApp1.Funtions
             }
 
             return cars;
+        }
+
+
+        public int GetTotalCars()
+        {
+            int totalCars = 0;
+
+            string query = "SELECT COUNT(*) FROM Cars";
+
+            try
+            {
+                dbconnect.OpenConnection();
+                SqlCommand cmd = new SqlCommand(query, dbconnect.GetConnection());
+                totalCars = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving total cars: " + ex.Message);
+            }
+            finally
+            {
+                dbconnect.CloseConnection();
+            }
+
+            return totalCars;
         }
     }
 

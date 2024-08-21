@@ -82,6 +82,12 @@
     <Compile Include="GUI\Admin\ManageOrders.Designer.cs">
       <DependentUpon>ManageOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Admin\ManageProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Admin\ManageProducts.Designer.cs">
+      <DependentUpon>ManageProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Admin\ManageReports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,12 @@
       <DependentUpon>Customer_Orders.cs</DependentUpon>
     </Compile>
     <Compile Include="Funtions\HomeFuntions.cs" />
+    <Compile Include="GUI\MainUserControls\AdminNavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\MainUserControls\AdminNavBar.Designer.cs">
+      <DependentUpon>AdminNavBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MainUserControls\CartItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -227,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Customer\Customer_Orders.resx">
       <DependentUpon>Customer_Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainUserControls\AdminNavBar.resx">
+      <DependentUpon>AdminNavBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainUserControls\CartItems.resx">
       <DependentUpon>CartItems.cs</DependentUpon>

@@ -64,7 +64,7 @@ namespace WindowsFormsApp1
 
                     if (loginResult.role == "Admin")
                     {
-                        Admin.Dashboard adminDashboard = new Admin.Dashboard();
+                        Admin.Profile adminDashboard = new Admin.Profile();
                         this.Hide();
                         adminDashboard.Show();
                         adminDashboard.FormClosed += (s, args) => this.Close();
