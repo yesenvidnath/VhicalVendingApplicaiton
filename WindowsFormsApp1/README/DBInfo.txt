@@ -132,25 +132,35 @@ GO
 
 
 Products
+  -- Inserting 5 brands into the Brands table
+INSERT INTO Brands (BrandName, Description, Image)
+VALUES 
+('Tesla', 'American electric vehicle and clean energy company.', 'tesla_logo.jpg'),
+('Ford', 'American multinational automaker founded by Henry Ford.', 'ford_logo.jpg'),
+('Honda', 'Japanese multinational conglomerate known for automobiles, motorcycles, and power equipment.', 'honda_logo.jpg'),
+('BMW', 'German multinational company which produces luxury vehicles and motorcycles.', 'bmw_logo.jpg'),
+('Toyota', 'Japanese multinational automotive manufacturer.', 'toyota_logo.jpg');
+GO
+
 
 -- Inserting 5 parts into the CarParts table
 INSERT INTO CarParts ( CarID, PartName, Description, Price, QuantityAvailable, Image)
 VALUES 
-( 1, 'Battery Pack', 'High capacity battery pack for Tesla Model S', 9999.99, 5, 'tesla_battery_pack.jpg'),
-( 2, 'Exhaust System', 'High-performance exhaust system for Ford Mustang', 1499.99, 10, 'ford_exhaust_system.jpg'),
-( 3, 'Brake Pads', 'Front and rear brake pads for Honda Civic', 299.99, 20, 'honda_brake_pads.jpg'),
-( 4, 'Air Filter', 'High-performance air filter for BMW 3 Series', 199.99, 15, 'bmw_air_filter.jpg'),
-( 5, 'Spark Plugs', 'Set of 4 spark plugs for Toyota Camry', 49.99, 30, 'toyota_spark_plugs.jpg');
+( 6, 'Battery Pack', 'High capacity battery pack for Tesla Model S', 9999.99, 5, 'tesla_battery_pack.jpg'),
+( 7, 'Exhaust System', 'High-performance exhaust system for Ford Mustang', 1499.99, 10, 'ford_exhaust_system.jpg'),
+( 8, 'Brake Pads', 'Front and rear brake pads for Honda Civic', 299.99, 20, 'honda_brake_pads.jpg'),
+( 9, 'Air Filter', 'High-performance air filter for BMW 3 Series', 199.99, 15, 'bmw_air_filter.jpg'),
+( 10, 'Spark Plugs', 'Set of 4 spark plugs for Toyota Camry', 49.99, 30, 'toyota_spark_plugs.jpg');
 GO
 
 -- Inserting 5 cars into the Cars table
-INSERT INTO Cars ( Model, Make, Year, Price, QuantityAvailable, Image)
+INSERT INTO Cars ( BrandID, Model, Make, Year, Price, QuantityAvailable, Image)
 VALUES 
-( 'Model S', 'Tesla', 2023, 79999.99, 10, 'tesla_model_s.jpg'),
-( 'Mustang', 'Ford', 2022, 55999.99, 8, 'ford_mustang.jpg'),
-( 'Civic', 'Honda', 2023, 24999.99, 15, 'honda_civic.jpg'),
-( '3 Series', 'BMW', 2023, 42999.99, 7, 'bmw_3_series.jpg'),
-( 'Camry', 'Toyota', 2022, 27999.99, 12, 'toyota_camry.jpg');
+( 1,'Model S', 'Tesla', 2023, 79999.99, 10, 'tesla_model_s.jpg'),
+( 2, 'Mustang', 'Ford', 2022, 55999.99, 8, 'ford_mustang.jpg'),
+( 3, 'Civic', 'Honda', 2023, 24999.99, 15, 'honda_civic.jpg'),
+( 4, '3 Series', 'BMW', 2023, 42999.99, 7, 'bmw_3_series.jpg'),
+( 5, 'Camry', 'Toyota', 2022, 27999.99, 12, 'toyota_camry.jpg');
 GO
 
 
