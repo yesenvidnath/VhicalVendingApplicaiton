@@ -50,9 +50,9 @@ CREATE TABLE CarParts (
 );
 GO
 
--- Creating the Customers table
+-- Creating the Customers table with CustomerID as an autoincrementing column
 CREATE TABLE Customers (
-    CustomerID INT PRIMARY KEY,
+    CustomerID INT PRIMARY KEY IDENTITY(1,1),
     UserID INT FOREIGN KEY REFERENCES Users(UserID)
 );
 GO
@@ -115,23 +115,43 @@ GO
 
 Data base was created using SSMS and MSSQL, Here are some sample data inserted in to the users table for demo purseses 
 
--- Inserting sample data into Users table
+-- Inserting 5 users into the Users table
 INSERT INTO Users (FirstName, LastName, Email, Phone, Username, Password, Role)
 VALUES 
-    ('John', 'Doe', 'john.doe@example.com', '555-0100', 'johndoe', 'pass123', 'Customer'),
-    ('Jane', 'Smith', 'jane.smith@example.com', '555-0101', 'janesmith', 'pass123', 'Customer'),
-    ('Alice', 'Johnson', 'alice.johnson@example.com', '555-0102', 'alicejohnson', 'pass123', 'Admin'),
-    ('Bob', 'Williams', 'bob.williams@example.com', '555-0103', 'bobwilliams', 'pass123', 'Customer'),
-    ('Charlie', 'Brown', 'charlie.brown@example.com', '555-0104', 'charliebrown', 'pass123', 'Customer');
+('John', 'Doe', 'john.doe@example.com', '1234567890', 'johndoe', 'password123', 'Customer'),
+('Jane', 'Smith', 'jane.smith@example.com', '2345678901', 'janesmith', 'password123', 'Customer'),
+('Robert', 'Johnson', 'robert.johnson@example.com', '3456789012', 'robertjohnson', 'password123', 'Customer'),
+('Emily', 'Davis', 'emily.davis@example.com', '4567890123', 'emilydavis', 'password123', 'Customer'),
+('Michael', 'Brown', 'michael.brown@example.com', '5678901234', 'michaelbrown', 'password123', 'Customer');
+GO
 
--- Inserting sample data into Customers table, assuming all users with role 'Customer' are customers
-INSERT INTO Customers (CustomerID, UserID)
-SELECT UserID, UserID FROM Users WHERE Role = 'Customer';
+-- Inserting these users into the Customers table
+INSERT INTO Customers (UserID)
+SELECT UserID FROM Users WHERE Username IN ('johndoe', 'janesmith', 'robertjohnson', 'emilydavis', 'michaelbrown');
 GO
 
 
+Products
 
+-- Inserting 5 parts into the CarParts table
+INSERT INTO CarParts ( CarID, PartName, Description, Price, QuantityAvailable, Image)
+VALUES 
+( 1, 'Battery Pack', 'High capacity battery pack for Tesla Model S', 9999.99, 5, 'tesla_battery_pack.jpg'),
+( 2, 'Exhaust System', 'High-performance exhaust system for Ford Mustang', 1499.99, 10, 'ford_exhaust_system.jpg'),
+( 3, 'Brake Pads', 'Front and rear brake pads for Honda Civic', 299.99, 20, 'honda_brake_pads.jpg'),
+( 4, 'Air Filter', 'High-performance air filter for BMW 3 Series', 199.99, 15, 'bmw_air_filter.jpg'),
+( 5, 'Spark Plugs', 'Set of 4 spark plugs for Toyota Camry', 49.99, 30, 'toyota_spark_plugs.jpg');
+GO
 
+-- Inserting 5 cars into the Cars table
+INSERT INTO Cars ( Model, Make, Year, Price, QuantityAvailable, Image)
+VALUES 
+( 'Model S', 'Tesla', 2023, 79999.99, 10, 'tesla_model_s.jpg'),
+( 'Mustang', 'Ford', 2022, 55999.99, 8, 'ford_mustang.jpg'),
+( 'Civic', 'Honda', 2023, 24999.99, 15, 'honda_civic.jpg'),
+( '3 Series', 'BMW', 2023, 42999.99, 7, 'bmw_3_series.jpg'),
+( 'Camry', 'Toyota', 2022, 27999.99, 12, 'toyota_camry.jpg');
+GO
 
 
 =====================================================================================================================
